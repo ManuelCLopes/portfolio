@@ -12,31 +12,31 @@ const certifications = [
     name: 'Associate Developer (ODC)',
     issuer: 'OutSystems',
     date: 'March 2024',
-    badgeUrl: 'https://www.outsystems.com/certifications/Certifications_CW/_image.aspx/3UucD-ueG3h8prP4cuSrhWXH9Dj82gL7WcLRvdCeDKw=/developer-associate-odc%201.png',
+    badgeUrl: 'https://avatars.githubusercontent.com/u/2916417?s=280&v=4',
   },
   {
     name: 'Mobile developer Specialist',
     issuer: 'OutSystems',
     date: 'December 2023',
-    badgeUrl: 'https://www.outsystems.com/certifications/Certifications_CW/_image.aspx/3UucD-ueG3h8prP4cuSrhXspL_NZkfW9JpDoTk-SqnY=/mobile-developer-specialist.png',
+    badgeUrl: 'https://avatars.githubusercontent.com/u/2916417?s=280&v=4',
   },
   {
     name: 'Architecture Specialist',
     issuer: 'OutSystems',
     date: 'September 2022',
-    badgeUrl: 'https://www.outsystems.com/certifications/Certifications_CW/_image.aspx/3UucD-ueG3h8prP4cuSrheIfl6dt9mlkXf8BLdXK-xs=/architecture-specialist-11.png',
+    badgeUrl: 'https://avatars.githubusercontent.com/u/2916417?s=280&v=4',
   },
   {
     name: 'Associate Reactive Developer',
     issuer: 'OutSystems',
     date: 'May 2021',
-    badgeUrl: 'https://www.outsystems.com/certifications/Certifications_CW/_image.aspx/3UucD-ueG3h8prP4cuSrheCiu3DVWKGOn0LfjehV3EM=/reactive-web-developer-associate.png',
+    badgeUrl: 'https://avatars.githubusercontent.com/u/2916417?s=280&v=4',
   },
   {
     name: 'Associate Traditional Web Developer',
     issuer: 'OutSystems',
     date: 'May 2020',
-    badgeUrl: 'https://www.outsystems.com/certifications/Certifications_CW/_image.aspx/3UucD-ueG3h8prP4cuSrheDm8cjmo5Tnx6RksNuh_Fg=/web-developer-associate-11.png',
+    badgeUrl: 'https://avatars.githubusercontent.com/u/2916417?s=280&v=4',
   },
 ];
 
