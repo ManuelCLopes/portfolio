@@ -5,6 +5,20 @@ import 'tippy.js/dist/tippy.css'; // Tooltip styles
 
 const projects = [
   {
+    name: 'Competitor Watcher',
+    description: 'AI-powered local competitor analysis platform. Competitor Watcher helps businesses understand their competitive landscape by analyzing nearby competitors using Google Places data and AI-driven insights. Register your business, generate comprehensive reports, and make data-driven decisions to stay ahead of the competition.',
+    github: 'https://github.com/ManuelCLopes/radar',
+    demo: 'https://competitorwatcher.pt',
+    technologies: ['react', 'typescript', 'tailwindcss', 'nodejs', 'postgresql', 'googlecloud', 'chatgpt'],
+  },
+  {
+    name: 'LeadOps.',
+    description: 'A premium, high-conversion landing page for the "Lead Ops System" (Real Estate Lead Management). This static site allows agencies to capture leads and schedule demonstrations for a "Gmail-as-CRM" solution.',
+    github: 'https://github.com/ManuelCLopes/real-estate-lead-ops',
+    demo: 'https://tiny-snickerdoodle-eb2b4c.netlify.app',
+    technologies: ['html', 'css'],
+  },
+  {
     name: 'GraphPathsCalculator',
     description: 'This C++ application was implemented in order to explore the capabilities of graphs.',
     github: 'https://github.com/ManuelCLopes/GraphPathsCalculator',
@@ -43,10 +57,12 @@ const projects = [
 ];
 
 const techLogos = {
+  html: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', label: 'HTML' },
+  css: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', label: 'CSS' },
   python: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', label: 'Python' },
   cplusplus: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg', label: 'C++' },
   postgresql: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', label: 'PostgreSQL' },
-  django: { url: 'https://www.svgrepo.com/show/353657/django-icon.svg', label: 'Django' }, 
+  django: { url: 'https://www.svgrepo.com/show/353657/django-icon.svg', label: 'Django' },
   javascript: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', label: 'Javascript' },
   react: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', label: 'React' },
   docker: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', label: 'Docker' },
@@ -56,9 +72,13 @@ const techLogos = {
   googlecloud: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', label: 'GCP' },
   kotlin: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg', label: 'Kotlin' },
   rabbitmq: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rabbitmq/rabbitmq-original.svg', label: 'RabbitMQ' },
-  activemq: { url: 'https://activemq.apache.org/assets/img/activemq_logo_icon.svg', label: 'ActiveMQ' }, 
+  activemq: { url: 'https://activemq.apache.org/assets/img/activemq_logo_icon.svg', label: 'ActiveMQ' },
   kafka: { url: 'https://openwhisk.apache.org/images/icons/icon-kafka-white-trans.png', label: 'Kafka' },
   heroku: { url: 'https://www.svgrepo.com/show/331424/heroku.svg', label: 'Heroku' },
+  chatgpt: { url: 'https://img.icons8.com/androidL/512/FFFFFF/chatgpt.png', label: 'ChatGPT' },
+  typescript: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', label: 'TypeScript' },
+  tailwindcss: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', label: 'Tailwind CSS' },
+  nodejs: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', label: 'Node.js' },
 };
 
 const Projects = () => {
@@ -66,16 +86,37 @@ const Projects = () => {
     <div className="p-12 bg-gray-900 text-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project) => (
-          <motion.a
+
+          <motion.div
             key={project.name}
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => window.open(project.github, '_blank')}
             whileHover={{ scale: 1.05 }}
-            className="relative p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-400"
+            className="relative p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-400 cursor-pointer group"
           >
-            <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="absolute top-4 right-4 text-gray-400 hover:text-blue-400 transition-colors duration-300 z-10"
+                title="Live Demo"
+              >
+                <i className="fas fa-eye text-2xl"></i>
+              </a>
+            )}
+
+            <h3 className="text-2xl font-bold mb-2 pr-8">{project.name}</h3>
             <p className="text-gray-400 mb-4">{project.description}</p>
+
+            {project.features && (
+              <ul className="list-disc list-inside text-gray-400 mb-4 text-sm">
+                {project.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
+              </ul>
+            )}
+
             <div className="flex space-x-4 mb-4">
               {project.technologies.map((tech) => (
                 <Tippy key={tech} content={techLogos[tech].label}>
@@ -87,8 +128,9 @@ const Projects = () => {
                 </Tippy>
               ))}
             </div>
-          </motion.a>
-        ))}
+          </motion.div>
+        ))
+        }
       </div>
     </div>
   );
