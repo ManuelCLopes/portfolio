@@ -40,10 +40,10 @@ const Home = ({ scrollToProjects }) => {
           >
             {titles[currentTitle]}
           </motion.h1>
-          
+
           <p className="text-xl font-light text-gray-400 max-w-md mx-auto mb-8">
-            There are two things that I enjoy very much to do: innovate and solve problems. 
-            By doing those things, I'm able to make people's lives easier somehow, and that's great!
+            My passion lies in two things: innovating and solving problems.
+            They allow me to improve people's lives, and that motivates me every day!
           </p>
 
           <motion.button
