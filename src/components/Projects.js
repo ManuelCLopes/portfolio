@@ -5,6 +5,19 @@ import 'tippy.js/dist/tippy.css'; // Tooltip styles
 
 const projects = [
   {
+    name: 'DevDeck',
+    description: 'Local-first macOS workspace for tracking repositories, branch review queues, pull requests, and development activity from one desktop interface.',
+    github: 'https://github.com/ManuelCLopes/DevDeck',
+    technologies: ['electron', 'react', 'typescript', 'vitejs', 'tailwindcss', 'nodejs'],
+  },
+  {
+    name: 'francesinhas.top',
+    description: 'A focused platform to evaluate francesinhas in Portugal with structured scoring, configurable weighted criteria, national rankings, restaurant insights, and community suggestions.',
+    github: 'https://github.com/ManuelCLopes/francesinhas',
+    demo: 'https://francesinhas.top',
+    technologies: ['nextjs', 'typescript', 'tailwindcss', 'postgresql', 'prisma'],
+  },
+  {
     name: 'Competitor Watcher',
     description: 'AI-powered local competitor analysis platform. Competitor Watcher helps businesses understand their competitive landscape by analyzing nearby competitors using Google Places data and AI-driven insights. Register your business, generate comprehensive reports, and make data-driven decisions to stay ahead of the competition.',
     github: 'https://github.com/ManuelCLopes/radar',
@@ -79,6 +92,10 @@ const techLogos = {
   typescript: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', label: 'TypeScript' },
   tailwindcss: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', label: 'Tailwind CSS' },
   nodejs: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', label: 'Node.js' },
+  electron: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/electron/electron-original.svg', label: 'Electron' },
+  vitejs: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg', label: 'Vite' },
+  nextjs: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', label: 'Next.js', invert: true },
+  prisma: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg', label: 'Prisma', invert: true },
 };
 
 const Projects = () => {
@@ -123,7 +140,7 @@ const Projects = () => {
                   <img
                     src={techLogos[tech].url}
                     alt={techLogos[tech].label}
-                    className="w-8 h-8 hover:scale-110 transition-transform"
+                    className={`w-8 h-8 hover:scale-110 transition-transform ${techLogos[tech].invert ? 'invert' : ''}`}
                   />
                 </Tippy>
               ))}
