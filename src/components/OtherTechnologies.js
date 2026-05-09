@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import outsystemsRing from '../assets/outsystems-ring.svg';
 
 
 const extraTechnologies = [
@@ -10,10 +11,10 @@ const extraTechnologies = [
   { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
   { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
   { name: 'Android', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg' },
-  { name: 'iOS', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/505px-Apple_logo_grey.svg.png?20220821122206' },
+  { name: 'iOS', url: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/apple.svg', className: 'invert' },
 
   { name: 'Java', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
-  { name: 'OutSystems', url: 'https://www.outsystems.com/-/media/images/homepage/2024/hero/ring-hero.svg' },
+  { name: 'OutSystems', url: outsystemsRing },
   { name: 'Kubernetes', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
   { name: 'AWS', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg' },
 
@@ -94,7 +95,7 @@ const OtherTechnologies = () => {
               <img
                 src={tech.url}
                 alt={tech.name}
-                className="w-12 h-12"
+                className={`w-12 h-12 object-contain ${tech.className || ''}`}
               />
             </Tippy>
           ))}
