@@ -134,13 +134,13 @@ const Projects = () => {
               </ul>
             )}
 
-            <div className="flex space-x-4 mb-4">
+            <div className="flex flex-wrap gap-4 mb-4">
               {project.technologies.map((tech) => (
                 <Tippy key={tech} content={techLogos[tech].label}>
                   <img
                     src={techLogos[tech].url}
                     alt={techLogos[tech].label}
-                    className={`w-8 h-8 hover:scale-110 transition-transform ${techLogos[tech].invert ? 'invert' : ''}`}
+                    className={`w-8 h-8 flex-shrink-0 hover:scale-110 transition-transform ${techLogos[tech].invert ? 'invert' : ''}`}
                   />
                 </Tippy>
               ))}
