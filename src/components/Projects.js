@@ -108,7 +108,7 @@ const Projects = () => {
             key={project.name}
             onClick={() => window.open(project.github, '_blank')}
             whileHover={{ scale: 1.05 }}
-            className="relative p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-400 cursor-pointer group"
+            className="relative min-w-0 p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-400 cursor-pointer group"
           >
             {project.demo && (
               <a
@@ -134,13 +134,19 @@ const Projects = () => {
               </ul>
             )}
 
-            <div className="flex flex-wrap gap-4 mb-4">
+            <div
+              role="region"
+              aria-label={`${project.name} technologies`}
+              tabIndex={0}
+              onClick={(event) => event.stopPropagation()}
+              className="flex min-w-0 max-w-full gap-4 mb-4 overflow-x-auto overscroll-x-contain snap-x snap-proximity py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400"
+            >
               {project.technologies.map((tech) => (
                 <Tippy key={tech} content={techLogos[tech].label}>
                   <img
                     src={techLogos[tech].url}
                     alt={techLogos[tech].label}
-                    className={`w-8 h-8 flex-shrink-0 hover:scale-110 transition-transform ${techLogos[tech].invert ? 'invert' : ''}`}
+                    className={`w-8 h-8 flex-shrink-0 snap-start hover:scale-110 transition-transform ${techLogos[tech].invert ? 'invert' : ''}`}
                   />
                 </Tippy>
               ))}
