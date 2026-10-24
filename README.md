@@ -20,7 +20,7 @@ This is the personal portfolio website of Manuel Lopes, showcasing my profession
 
 ## Technologies used:
 
-- React
+- React (built with Vite)
 
 - Framer Motion for animations
 
@@ -58,11 +58,19 @@ This is the personal portfolio website of Manuel Lopes, showcasing my profession
 ```
 
 
-This will run the portfolio website on `http://localhost:3000`.
+This will run the portfolio website on `http://localhost:5173`.
+
+Other scripts:
+
+```bash
+   npm test         # run the tests (Vitest)
+   npm run build    # production build into build/
+   npm run preview  # serve the production build locally
+```
 
 ### Deployment:
 
-This project is designed to be deployed on services like Netlify, Vercel, or any static web hosting platform. For the backend email API, make sure the Node.js server is deployed separately (e.g., on Heroku) and update the contact form endpoint.
+`npm run deploy` builds the site with Vite and publishes `build/` to the `gh-pages` branch (GitHub Pages). Asset paths are relative, so the build also works from any static host or sub-path. For the backend email API, make sure the Node.js server is deployed separately (e.g., on Heroku) and update the contact form endpoint.
 
 ### Contact:
 
