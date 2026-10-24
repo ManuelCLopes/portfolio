@@ -4,6 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      # Tailwind 4 is a framework migration (CSS-first config, new PostCSS
+      # plugin, renamed utilities); upgrade deliberately, not via a bump.
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
     groups:
       minor-and-patch:
         update-types:
