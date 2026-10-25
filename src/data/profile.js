@@ -107,9 +107,9 @@ export const projects = [
 export const experience = [
   {
     company: 'Talkdesk', website: 'https://www.talkdesk.com', role: 'Software Engineer', start: '2024-12', end: null,
-    recruiterNote: 'Mostly Kotlin, plus Ruby and React, on a generative-AI customer experience platform.',
-    engineer: 'Generative-AI customer experience platform, in the cloud and on premises. Mostly Kotlin, some Ruby and React. PostgreSQL and Cassandra for data, Kafka and RabbitMQ for messaging, Dynatrace and Grafana to see what production is doing.',
-    curious: 'Building software that helps companies talk to their customers, with AI in the mix. Mostly written in [[Kotlin]], with an eye on the [[dashboards]] that show when something’s off.',
+    recruiterNote: 'Owns services end to end, from discovery and design to monitoring in production. Mostly Kotlin, plus Ruby and React.',
+    engineer: 'Generative-AI customer experience platform, in the cloud and on premises. Every engineer on the team owns their services end to end: discovery and design, build, deploy, and monitoring in production. Mostly Kotlin, some Ruby and React. PostgreSQL and Cassandra for data, Kafka and RabbitMQ for messaging, Dynatrace and Grafana for observability.',
+    curious: 'Building software that helps companies talk to their customers, with AI in the mix. I look after my pieces from the first idea to keeping them healthy once they’re live, mostly writing [[Kotlin]] and watching the [[dashboards]] that show when something’s off.',
   },
   {
     company: 'Bitsight', website: 'https://www.bitsight.com', role: 'Software Engineer', start: '2024-07', end: '2024-08',
