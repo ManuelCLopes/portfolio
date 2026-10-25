@@ -65,22 +65,34 @@ function typeIn(el, duration = 1.1) {
 }
 
 const enter = (trigger, fn, start = 'top 78%') => trigger && ScrollTrigger.create({ trigger, start, once: true, onEnter: fn });
+// Builds the reveal straight away, so its starting state (hidden, offset…) is in place before the element is
+// ever painted, then plays it once the element scrolls into view.
+const reveal = (trigger, build, start) => {
+  if (!trigger) return;
+  const anim = build().pause();
+  enter(trigger, () => anim.play(), start);
+};
 
 // Builds the scroll choreography for one persona. Call inside gsap.context so
 // everything is reverted when the persona changes.
 export function choreograph(root, persona, { onProgress } = {}) {
+  const cleanups = [];
   ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (st) => onProgress?.(st.progress) });
 
   // Section headings decode as they arrive, in every persona.
-  $$('section:not(.hero) h2', root).forEach((h) => enter(h, () => scramble(h), 'top 85%'));
+  // They stay hidden until then, so the readable heading never flashes before the effect.
+  $$('section:not(.hero) h2', root).forEach((h) => {
+    gsap.set(h, { opacity: 0 });
+    enter(h, () => { gsap.set(h, { opacity: 1 }); scramble(h); }, 'top 85%');
+  });
   const h1 = $('.hero h1', root);
 
   if (persona === 'recruiter') {
     gsap.from(h1, { y: 30, opacity: 0, duration: 0.5, ease: 'power3.out' });
-    enter($('.facts', root), () => gsap.timeline()
+    reveal($('.facts', root), () => gsap.timeline()
       .from($$('.facts li', root), { y: 16, opacity: 0, duration: 0.35, stagger: 0.06, ease: 'power2.out' })
       .fromTo($$('.stamp', root), { scale: 2.6, opacity: 0, rotation: -40 }, { scale: 1, opacity: 1, rotation: -12, duration: 0.35, stagger: 0.09, ease: 'back.out(2.2)' }, 0.25), 'top 92%');
-    enter($('.cards', root), () => gsap.from($$('.card', root), { x: 60, opacity: 0, duration: 0.45, stagger: 0.08, ease: 'power3.out' }));
+    reveal($('.cards', root), () => gsap.from($$('.card', root), { x: 60, opacity: 0, duration: 0.45, stagger: 0.08, ease: 'power3.out' }));
     // Career: the rail fills with scroll; each role is ticked and its tenure bar grows.
     gsap.to($('.rail i', root), { height: '100%', ease: 'none', scrollTrigger: { trigger: $('.tl-wrap', root), start: 'top 65%', end: 'bottom 65%', scrub: 0.4 } });
     $$('.timeline li', root).forEach((li) => {
@@ -90,28 +102,30 @@ export function choreograph(root, persona, { onProgress } = {}) {
         .fromTo($('.tenure i', li), { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power3.out' }, 0.1);
     });
     const stat = $('.big-stat', root);
-    enter(stat, () => {
+    if (stat) {
       const target = Number(stat.dataset.count); const o = { v: 0 };
-      gsap.to(o, { v: target, duration: 1.1, ease: 'power2.out', onUpdate: () => { stat.textContent = Math.round(o.v); } });
-    });
+      reveal(stat, () => gsap.to(o, { v: target, duration: 1.1, ease: 'power2.out', onUpdate: () => { stat.textContent = Math.round(o.v); } }));
+      stat.textContent = '0';
+      cleanups.push(() => { stat.textContent = String(target); });
+    }
   }
 
   if (persona === 'engineer') {
     typeIn(h1);
-    enter($('.facts', root), () => gsap.from($$('.facts li', root), { clipPath: 'inset(0 100% 0 0)', duration: 0.4, stagger: 0.12, ease: 'steps(12)' }), 'top 92%');
-    $$('.card', root).forEach((card) => enter(card, () => gsap.timeline()
+    reveal($('.facts', root), () => gsap.from($$('.facts li', root), { clipPath: 'inset(0 100% 0 0)', duration: 0.4, stagger: 0.12, ease: 'steps(12)' }), 'top 92%');
+    $$('.card', root).forEach((card) => reveal(card, () => gsap.timeline()
       .from(card, { y: 30, opacity: 0, duration: 0.4, ease: 'power2.out' })
       .from($$('.chip', card), { scale: 0, opacity: 0, duration: 0.25, stagger: 0.05, ease: 'back.out(3)' }, 0.15)
       .from($('.note', card), { clipPath: 'inset(0 0 100% 0)', duration: 0.7, ease: 'steps(6)' }, 0.3)));
     gsap.to($('.rail i', root), { height: '100%', ease: 'none', scrollTrigger: { trigger: $('.tl-wrap', root), start: 'top 65%', end: 'bottom 65%', scrub: 0.4 } });
     $$('.timeline li', root).forEach((li) => gsap.fromTo(li, { opacity: 0.2, x: -14 }, { opacity: 1, x: 0, duration: 0.4, scrollTrigger: { trigger: li, start: 'top 66%', toggleActions: 'play none none reverse' } }));
-    $$('.papers li', root).forEach((li) => enter(li, () => gsap.from(li, { opacity: 0, x: 20, duration: 0.35 }), 'top 92%'));
+    $$('.papers li', root).forEach((li) => reveal(li, () => gsap.from(li, { opacity: 0, x: 20, duration: 0.35 }), 'top 92%'));
   }
 
   if (persona === 'curious') {
     gsap.from($$('.w', h1), { y: 60, rotation: () => gsap.utils.random(-14, 14), opacity: 0, duration: 0.9, stagger: 0.05, ease: 'elastic.out(1, 0.55)' });
-    enter($('.facts', root), () => gsap.from($$('.facts li', root), { scale: 0.6, opacity: 0, rotation: (i) => (i % 2 ? 6 : -6), duration: 0.6, stagger: 0.1, ease: 'back.out(2)' }), 'top 92%');
-    enter($('.cards', root), () => gsap.from($$('.card', root), { rotationY: -100, y: 40, opacity: 0, transformOrigin: '0% 50%', duration: 0.8, stagger: 0.14, ease: 'power3.out' }));
+    reveal($('.facts', root), () => gsap.from($$('.facts li', root), { scale: 0.6, opacity: 0, rotation: (i) => (i % 2 ? 6 : -6), duration: 0.6, stagger: 0.1, ease: 'back.out(2)' }), 'top 92%');
+    reveal($('.cards', root), () => gsap.from($$('.card', root), { rotationY: -100, y: 40, opacity: 0, transformOrigin: '0% 50%', duration: 0.8, stagger: 0.14, ease: 'power3.out' }));
     // Career: a dotted trail is drawn beside the story and a dot walks it.
     const wrap = $('.tl-wrap', root);
     const svg = $('.trail', wrap), walked = $('.walked', svg), ahead = $('.ahead', svg), dot = $('circle', svg);
@@ -132,6 +146,8 @@ export function choreograph(root, persona, { onProgress } = {}) {
   }
 
   ScrollTrigger.refresh();
+  // gsap.context runs this on revert, for the changes it doesn't track itself.
+  return () => cleanups.forEach((fn) => fn());
 }
 
 // The persona switch: a circle in the new accent grows from the button that was

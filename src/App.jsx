@@ -19,6 +19,14 @@ const initialPersona = () => {
 const motionAllowed = () => typeof window.matchMedia === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let anim = null; // the GSAP module, loaded lazily so tests and reduced-motion readers skip it
+
+// While the animation code loads, the chooser cards and the page stay hidden (see .anim-pending in index.css),
+// so they first appear through their entrance animation rather than popping in and then animating.
+const settle = () => document.documentElement.classList.remove('anim-pending');
+if (motionAllowed()) {
+  document.documentElement.classList.add('anim-pending');
+  setTimeout(settle, 3000); // never leave the page hidden if loading stalls
+}
 const loadAnim = () => (anim ? Promise.resolve(anim) : import('./animations').then((m) => (anim = m)));
 
 export default function App() {
@@ -38,7 +46,7 @@ export default function App() {
     if (meterFillRef.current) meterFillRef.current.style.width = `${Math.round(p * 100)}%`;
   }, [current]);
 
-  useEffect(() => { if (motion) loadAnim().then(() => setReady(true)); }, [motion]);
+  useEffect(() => { if (motion) loadAnim().then(() => setReady(true), settle); }, [motion]);
 
   // Accent and reading time follow the persona.
   useLayoutEffect(() => {
@@ -64,6 +72,7 @@ export default function App() {
 
   useEffect(() => {
     if (motion && ready && cardsRef.current) anim.introCards(cardsRef.current.children);
+    if (ready) settle(); // the entrance states are set by now, in this effect and the choreography's layout effect
   }, [motion, ready]);
 
   // Each chooser card's character idles, reacts on hover and focus, and plays its reaction when picked.

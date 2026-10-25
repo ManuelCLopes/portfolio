@@ -44,7 +44,7 @@ test('each persona rewrites the page', async () => {
   expect(screen.getByText('How I got here')).toBeInTheDocument();
 });
 
-test('private repositories never link to their code, and the GitHub profile card is last', () => {
+test('private repositories never link to their code, and the GitHub profile comes last', () => {
   window.history.replaceState(null, '', '/#engineer');
   render(<App />);
   const projects = document.querySelector('#projects');
@@ -56,6 +56,19 @@ test('private repositories never link to their code, and the GitHub profile card
   expect(within(projects).getByRole('link', { name: /aura league|auraleague\.app/i })).toHaveAttribute('href', 'https://auraleague.app');
   const cards = projects.querySelectorAll('.cards > *');
   expect(cards[cards.length - 1]).toHaveAttribute('href', 'https://github.com/ManuelCLopes');
+});
+
+test('recruiter and curious list the GitHub profile after the smaller projects, not as a card', async () => {
+  const user = userEvent.setup();
+  window.history.replaceState(null, '', '/#recruiter');
+  render(<App />);
+  for (const name of ['Recruiter', 'Curious']) {
+    await user.click(within(screen.getByRole('group', { name: /switch persona/i })).getByRole('button', { name }));
+    const projects = document.querySelector('#projects');
+    expect(projects.querySelector('.cards a.more')).toBeNull();
+    const rows = projects.querySelectorAll('.mini li');
+    expect(within(rows[rows.length - 1]).getByRole('link')).toHaveAttribute('href', 'https://github.com/ManuelCLopes');
+  }
 });
 
 test('opens the persona from the link hash', () => {

@@ -49,6 +49,9 @@ a { color: var(--accent); }
 .pick .stage { display: block; margin: -8px -8px 6px; border-radius: 9px; background: color-mix(in srgb, var(--c) 9%, var(--surface)); overflow: hidden; }
 .pick .stage svg { display: block; width: 100%; height: auto; }
 
+/* Hidden only while the animation code loads; App removes the class once entrances are in place. */
+.anim-pending .personas, .anim-pending main { opacity: 0; }
+
 /* Persona characters: one outline weight, fills from tokens so both themes work. */
 .fig * { stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
 .fig .face { fill: color-mix(in srgb, var(--c) 16%, var(--surface)); }
@@ -159,6 +162,7 @@ h1.typing::after { content: ""; display: inline-block; width: .45em; height: .8e
 .mini li { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px dashed var(--rule); }
 .mini a, .mini strong { font-weight: 600; }
 .mini span { color: var(--mute); }
+.mini .more-row { border-bottom: 0; }
 
 .tl-wrap { position: relative; }
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; }

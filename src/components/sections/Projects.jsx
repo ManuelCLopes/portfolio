@@ -31,7 +31,8 @@ const MoreCard = ({ persona }) => (
   </a>
 );
 
-const Others = ({ items, text }) => (
+// The smaller projects, ending with the GitHub profile, since that's where everything else lives.
+const Others = ({ items, text, persona }) => (
   <ul className="mini">
     {items.map((p) => {
       const href = mainLink(p);
@@ -42,6 +43,10 @@ const Others = ({ items, text }) => (
         </li>
       );
     })}
+    <li className="more-row">
+      <a href={GITHUB_PROFILE} target="_blank" rel="noopener noreferrer">{MORE[persona].title}<ArrowUpRight /></a>
+      <span>{MORE[persona].text}</span>
+    </li>
   </ul>
 );
 
@@ -63,9 +68,8 @@ export default function Projects({ persona }) {
               <Links p={p} />
             </article>
           ))}
-          <MoreCard persona={persona} />
         </div>
-        <Others items={others} text={(p) => p.recruiter.pitch} />
+        <Others items={others} text={(p) => p.recruiter.pitch} persona={persona} />
       </>
     );
   }
@@ -110,9 +114,8 @@ export default function Projects({ persona }) {
             <h3>{p.name}</h3><Status p={p} /><p><Jargon text={p.curious} explain /></p><Links p={p} />
           </article>
         ))}
-        <MoreCard persona={persona} />
       </div>
-      <Others items={others} text={(p) => <Jargon text={p.curious} explain />} />
+      <Others items={others} text={(p) => <Jargon text={p.curious} explain />} persona={persona} />
     </>
   );
 }
