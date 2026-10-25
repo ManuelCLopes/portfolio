@@ -172,7 +172,7 @@ export const jargon = {
   AI: 'Software that can read and write text, a bit like a very fast intern.',
   'the cloud': 'Someone else’s computer, rented by the hour.',
   'low-code': 'Programming by connecting visual blocks instead of typing everything.',
-  Kotlin: 'A programming language, popular for Android apps and the servers behind them.',
+  Kotlin: 'A programming language. Here it runs the servers behind the scenes that the apps talk to.',
   dashboards: 'Screens full of live charts showing whether the system is healthy, like a car’s instrument panel.',
   sensors: 'Little devices that measure things like temperature or movement and report back.',
 };
