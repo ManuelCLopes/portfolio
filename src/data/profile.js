@@ -107,17 +107,19 @@ export const projects = [
 export const experience = [
   {
     company: 'Talkdesk', website: 'https://www.talkdesk.com', role: 'Software Engineer', start: '2024-12', end: null,
+    recruiterNote: 'Kotlin on a generative-AI customer experience platform, in the cloud and on premises.',
     engineer: 'Generative-AI customer experience platform, deployed in the cloud and on premises. Mostly Kotlin.',
     curious: 'Building software that helps companies talk to their customers.',
   },
   {
     company: 'Bitsight', website: 'https://www.bitsight.com', role: 'Software Engineer', start: '2024-07', end: '2024-08',
+    recruiterNote: 'Worked on REST APIs serving large data volumes.',
     engineer: 'Joined a team scaling REST APIs during rapid user growth. Worked on endpoints serving large data volumes.',
     curious: 'A short stop on a team making a big system cope with lots of people at once.',
   },
   {
     company: 'Polytechnic Institute of Viseu', website: 'https://ipv.pt', role: 'Invited Assistant', start: '2023-02', end: '2026-09',
-    recruiterNote: 'Taught alongside industry roles.',
+    recruiterNote: 'Taught four university courses alongside industry roles.',
     engineer: 'Taught Programming and Algorithms, Software Engineering I, Database Management and NoSQL. Course materials and student support.',
     curious: 'Taught university students how to program for three and a half years. Turns out explaining things is half the job anyway.',
   },
@@ -129,11 +131,13 @@ export const experience = [
   },
   {
     company: 'Softinsa', website: 'https://www.softinsa.pt/pt/', role: 'Software Developer', start: '2020-09', end: '2022-06',
+    recruiterNote: 'Built two OutSystems web apps for banking: vault and property management.',
     engineer: 'OutSystems for banking: a Reactive web app for vault management and a Traditional web app for properties held for divestment.',
     curious: 'Building apps for banks with a tool that lets you program by drawing boxes (it’s called [[low-code]]).',
   },
   {
     company: 'Softinsa', website: 'https://www.softinsa.pt/pt/', role: 'Trainee', start: '2020-02', end: '2020-06',
+    recruiterNote: 'First role: a project time-tracking app that works offline.',
     engineer: 'Online/offline mobile and web app for projects and the hours each collaborator claims.',
     curious: 'First job: an app to track who worked on what, even without internet.',
   },
