@@ -165,7 +165,8 @@ export const certifications = [
   { name: 'Associate Traditional Web Developer', issuer: 'OutSystems', date: 'May 2020' },
 ];
 
-export const otherTech = ['Java', 'Android', 'iOS', 'Kubernetes', 'AWS', 'MySQL', 'Oracle', 'MongoDB', 'JMeter', 'JUnit', 'Postman', 'GitLab', 'Jira'];
+// Anything not already in the engineer hero's grouped rows (data, messaging, observability, cloud, testing).
+export const otherTech = ['Java', 'Android', 'iOS', 'Postman', 'GitLab', 'Jira'];
 
 // Plain-language translations shown on hover in the Curious persona.
 export const jargon = {

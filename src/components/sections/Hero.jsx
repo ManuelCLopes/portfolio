@@ -35,12 +35,15 @@ export default function Hero({ persona }) {
 
   if (persona === 'engineer') {
     const facts = [
-      ['day job', 'Kotlin, on a gen-AI CX platform @ Talkdesk'],
+      ['day job', 'Kotlin, plus some Ruby and React, on a gen-AI CX platform @ Talkdesk'],
       ['side projects', 'TypeScript · React · Node.js · PostgreSQL'],
       ['also shipped with', 'Next.js · Prisma · Electron · Flutter · Python · Django · C++'],
-      ['low-code', `OutSystems, ${outsystemsCerts} certifications`],
+      ['data', 'PostgreSQL · Cassandra · MySQL · Oracle · MongoDB'],
+      ['messaging', 'Kafka · RabbitMQ · ActiveMQ'],
+      ['observability', 'Dynatrace · Datadog · Grafana'],
       ['cloud & infra', 'AWS Certified Cloud Practitioner · Docker · Kubernetes'],
       ['testing', 'Vitest · Playwright · JUnit · JMeter'],
+      ['low-code', `OutSystems, ${outsystemsCerts} certifications`],
       ['also worked with', otherTech.join(' · ')],
     ];
     return (
