@@ -14,7 +14,10 @@ export default function Chooser({ current, onPick, cardsRef }) {
             return (
               <button key={p} type="button" className="pick" data-p={p} style={{ '--c': m.accent }} aria-pressed={current === p} onClick={(e) => onPick(p, e.currentTarget)}>
                 <Character persona={p} />
-                <span className="tag">{p === 'curious' ? 'Just curious' : m.label}</span>
+                <span className="tag">
+                  {p === 'curious' ? 'Just curious' : m.label}
+                  {current === p && <span className="now">Reading now</span>}
+                </span>
                 <strong>
                   {m.pick.title}
                   {p === 'engineer' && <span className="caret" aria-hidden="true" />}

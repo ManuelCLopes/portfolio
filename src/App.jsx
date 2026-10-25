@@ -130,6 +130,11 @@ export default function App() {
 
   const pick = (p, el) => {
     if (busy.current) return;
+    // Already reading this one: say so on the card instead of reloading the same page.
+    if (p === current) {
+      if (motion && ready) anim.alreadyHere(el, rigs.current.get(el)?.hover);
+      return;
+    }
     if (motion && ready && cardsRef.current) {
       busy.current = true;
       const others = [...cardsRef.current.children].filter((c) => c !== el);

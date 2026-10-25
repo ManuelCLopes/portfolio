@@ -71,6 +71,19 @@ test('recruiter and curious list the GitHub profile after the smaller projects, 
   }
 });
 
+test('picking the persona already being read keeps the page and marks the card', async () => {
+  const user = userEvent.setup();
+  window.history.replaceState(null, '', '/#engineer');
+  render(<App />);
+  const chooser = screen.getByRole('group', { name: /choose how you want to read/i });
+  const engineerCard = within(chooser).getByRole('button', { name: /engineer/i });
+  expect(within(engineerCard).getByText('Reading now')).toBeInTheDocument();
+  const heroBefore = hero();
+  await user.click(engineerCard);
+  expect(hero()).toBe(heroBefore); // same element: the page wasn't re-rendered
+  expect(window.location.hash).toBe('#engineer');
+});
+
 test('opens the persona from the link hash', () => {
   window.history.replaceState(null, '', '/#engineer');
   render(<App />);

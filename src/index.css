@@ -44,6 +44,7 @@ a { color: var(--accent); }
 }
 .pick[aria-pressed="true"] { border-color: var(--c); }
 .pick .tag { font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.pick .now { display: inline-block; margin-left: 8px; padding: 2px 7px; border-radius: 999px; background: var(--c); color: #fff; letter-spacing: .04em; }
 .pick strong { font: 900 30px/1 var(--display); font-stretch: 112%; }
 .pick .q2 { color: var(--mute); font-size: 14px; }
 .pick .meter { display: flex; gap: 3px; margin-top: 4px; }

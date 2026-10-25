@@ -311,3 +311,14 @@ export function peekAndPoint(peek, { vertical }) {
     .to(peek, { x: 0, y: 0, duration: 0.4, ease: 'power2.in' }, '<')
     .set(peek, { visibility: 'hidden' });
 }
+
+// Picking the persona you're already reading: the card shakes its head, the "Reading now" label pulses and the
+// character does its hover reaction, instead of wiping to the same page.
+export function alreadyHere(card, hover) {
+  hover?.play();
+  return gsap.timeline({ onComplete: () => hover?.reverse() })
+    .to(card, { x: -6, duration: 0.06, repeat: 5, yoyo: true, ease: 'sine.inOut' }, 0)
+    .set(card, { x: 0 })
+    .fromTo($('.now', card), { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, ease: 'power2.out' }, 0)
+    .to({}, { duration: 0.9 });
+}
