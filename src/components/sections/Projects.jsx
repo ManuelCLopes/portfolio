@@ -53,7 +53,7 @@ export default function Projects({ persona }) {
     return (
       <>
         <p className="eyebrow">Side projects</p>
-        <h2>He ships outside office hours too</h2>
+        <h2>He ships after hours too</h2>
         <p className="lede">Four products built end to end, each with the signal it sends. {others.length} smaller ones below.</p>
         <div className="cards">
           {featured.map((p) => (

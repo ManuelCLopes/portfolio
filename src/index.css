@@ -28,8 +28,8 @@ a { color: var(--accent); }
 
 /* Chooser */
 .chooser { padding-block: 64px 56px; overflow: hidden; }
-.chooser .q { font: 900 clamp(44px, 9vw, 112px)/.88 var(--display); font-stretch: 125%; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: balance; }
-.chooser .sub { color: var(--mute); margin: 0 0 36px; max-width: 52ch; }
+.chooser .q { font: 900 clamp(44px, 9vw, 112px)/.88 var(--display); font-stretch: 125%; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: pretty; }
+.chooser .sub { color: var(--mute); margin: 0 0 36px; }
 .personas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .pick {
   position: relative; overflow: hidden; text-align: left; background: var(--surface); color: var(--ink); border: 2px solid var(--rule); border-radius: 14px;
@@ -71,13 +71,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* Sections */
 main section { position: relative; padding-block: 72px 24px; }
 .eyebrow { font: 600 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
-h2 { font: 900 clamp(32px, 5.5vw, 64px)/.95 var(--display); font-stretch: 118%; letter-spacing: -0.015em; margin: 0 0 12px; text-wrap: balance; }
+h2 { font: 900 clamp(32px, 5.5vw, 64px)/.95 var(--display); font-stretch: 118%; letter-spacing: -0.015em; margin: 0 0 12px; text-wrap: pretty; }
+/* A heading made of two sentences breaks between them, never inside one. */
+h2 .line { display: block; }
 h3.sub { font: 700 20px/1.2 var(--display); margin: 32px 0 8px; }
-.lede { color: var(--mute); max-width: 72ch; margin: 0 0 28px; text-wrap: pretty; }
+.lede { color: var(--mute); margin: 0 0 28px; text-wrap: pretty; }
 p, li { text-wrap: pretty; }
 .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; flex: none; }
 a .icon { margin-left: .2em; }
-.hero h1 { font: 900 clamp(40px, 7vw, 92px)/.9 var(--display); font-stretch: 125%; letter-spacing: -0.02em; margin: 0 0 18px; text-wrap: balance; }
+.hero h1 { font: 900 clamp(40px, 7vw, 88px)/.9 var(--display); font-stretch: 125%; letter-spacing: -0.02em; margin: 0 0 18px; text-wrap: pretty; }
 .hero h1 em { font-style: normal; color: var(--accent); }
 .w { display: inline-block; }
 h1.typing::after { content: ""; display: inline-block; width: .45em; height: .8em; background: var(--accent); margin-left: .08em; vertical-align: -0.02em; animation: blink 1s steps(1) infinite; }

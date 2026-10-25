@@ -12,7 +12,7 @@ const COPY = {
     button: 'Submit new issue', sent: 'Issue opened. I’ll triage it soon.', preview: 'Preview',
   },
   curious: {
-    eyebrow: 'Say hi', title: 'Questions? Ideas? A francesinha tip?', lede: 'All three are welcome. The third gets priority.',
+    eyebrow: 'Say hi', title: ['Questions? Ideas?', 'A francesinha tip?'], lede: 'All three are welcome. The third gets priority.',
     button: 'Send a hello', sent: 'Hello received! I’ll write back soon.', preview: 'Your postcard',
   },
 };
@@ -108,7 +108,7 @@ export default function Contact({ persona }) {
   return (
     <>
       <p className="eyebrow">{c.eyebrow}</p>
-      <h2>{c.title}</h2>
+      <h2>{Array.isArray(c.title) ? c.title.map((line, i) => <span key={line} className="line">{i > 0 && ' '}{line}</span>) : c.title}</h2>
       <p className="lede">{c.lede}</p>
       <div className="contact-grid">
         <form onSubmit={submit}>
