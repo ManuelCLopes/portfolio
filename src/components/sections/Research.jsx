@@ -54,10 +54,10 @@ export default function Research({ persona }) {
     <>
       <p className="eyebrow">Fun fact</p>
       <h2>Five scientific papers</h2>
-      <p className="lede"><Jargon explain text="Yes, really. One is about reading text from photos with your phone. Another is about keeping construction workers safe with [[sensors]]. Yes, the academic kind, with references and everything." /></p>
+      <p className="lede"><Jargon explain text="Yes, really. One reads text from photos on your phone, another keeps construction workers safe with [[sensors]]." /></p>
       <Papers />
       <h3 className="sub">And a few certificates</h3>
-      <p className="lede">Six of them: one from Amazon’s cloud and five from OutSystems, plus a master’s degree from the Polytechnic of Viseu. None of them framed. Yet.</p>
+      <p className="lede">One from Amazon’s cloud, five from OutSystems and a master’s from Viseu. None of them framed. Yet.</p>
     </>
   );
 }
