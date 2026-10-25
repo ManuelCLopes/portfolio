@@ -13,7 +13,7 @@ export default function Career({ persona }) {
         <p className="eyebrow">Career</p>
         {/* True because the teaching role overlaps the switch between industry jobs. */}
         <h2>{experience.length} roles, zero gaps</h2>
-        <p className="lede">Banking, security and customer experience. Tenure included, because you were going to calculate it anyway.</p>
+        <p className="lede">Banking, security and customer experience. Time in each role included, because you were going to calculate it anyway.</p>
         <div className="tl-wrap">
           <span className="rail" aria-hidden="true"><i /></span>
           <ol className="timeline">
