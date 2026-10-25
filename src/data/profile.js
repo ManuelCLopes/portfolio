@@ -170,7 +170,7 @@ export const otherTech = ['Java', 'Android', 'iOS', 'Kubernetes', 'AWS', 'MySQL'
 // Plain-language translations shown on hover in the Curious persona.
 export const jargon = {
   AI: 'Software that can read and write text, a bit like a very fast intern.',
-  'the cloud': 'Someone else’s computer, rented by the hour.',
+  'the cloud': 'Computers somewhere on the internet that store your stuff, instead of your own.',
   'low-code': 'Programming by connecting visual blocks instead of typing everything.',
   Kotlin: 'A programming language. Here it runs the servers behind the scenes that the apps talk to.',
   dashboards: 'Screens full of live charts showing whether the system is healthy, like a car’s instrument panel.',
