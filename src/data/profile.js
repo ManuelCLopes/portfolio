@@ -120,7 +120,7 @@ export const experience = [
   {
     company: 'Polytechnic Institute of Viseu', website: 'https://ipv.pt', role: 'Invited Assistant', start: '2023-02', end: '2026-09',
     recruiterNote: 'Taught four university courses alongside industry roles.',
-    engineer: 'Taught Programming and Algorithms, Software Engineering I, Database Management and NoSQL. Course materials and student support.',
+    engineer: 'Taught four courses alongside industry work, from Programming and Algorithms and Software Engineering I to Database Management and NoSQL, preparing course materials and supporting students along the way.',
     curious: 'Taught university students how to program for three and a half years. Turns out explaining things is half the job anyway.',
   },
   {
