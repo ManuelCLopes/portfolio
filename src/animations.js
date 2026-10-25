@@ -155,9 +155,96 @@ export function dropOthers(chosen, others) {
   return gsap.timeline()
     .to(chosen, { scale: 1.04, duration: 0.18, yoyo: true, repeat: 1 }, 0)
     .to(others, { y: () => innerHeight * 0.7, rotation: (i) => (i ? 22 : -22), opacity: 0, duration: 0.55, ease: 'power2.in' }, 0)
-    .set(others, { clearProps: 'all' }, 2.2);
+    .set(others, { clearProps: 'transform,opacity' }, 2.2);
 }
 
 export function introCards(cards) {
   return gsap.from(cards, { y: 40, opacity: 0, rotation: (i) => (i - 1) * 4, duration: 0.7, stagger: 0.09, ease: 'back.out(1.6)', delay: 0.1 });
+}
+
+// Persona characters on the chooser cards (see components/Characters.jsx). Each rig runs an idle loop and
+// returns a paused hover timeline plus a pick() reaction. Call inside gsap.context so it can be reverted.
+const blinkLoop = (eyes) => gsap.timeline({ repeat: -1, repeatDelay: 2 + Math.random() * 2.5, delay: Math.random() * 2 })
+  .to(eyes, { scaleY: 0.1, transformOrigin: '50% 50%', duration: 0.07, yoyo: true, repeat: 1 });
+const steamLoop = (svg) => $$('.steam', svg).forEach((s, i) => gsap.fromTo(s,
+  { y: 6, opacity: 0 }, { y: -6, opacity: 0.9, duration: 1.6, repeat: -1, ease: 'sine.inOut', delay: i * 0.8, yoyo: true }));
+
+const RIGS = {
+  recruiter(svg) {
+    const q = (s) => $(s, svg);
+    const tap = gsap.timeline({ repeat: -1, repeatDelay: 1.4 }).to(q('.arm circle'), { y: -3, duration: 0.08, yoyo: true, repeat: 5 });
+    const hover = gsap.timeline({ paused: true, defaults: { duration: 0.35, ease: 'power2.out' } })
+      .to(q('.arm'), { rotation: -62, svgOrigin: '150 123' })
+      .to(q('.eyes'), { x: 4, y: 2 }, '<')
+      .to(q('.brows'), { y: -4 }, '<')
+      .add(() => tap.pause(), 0);
+    const pick = () => gsap.timeline()
+      .add(() => hover.play())
+      .fromTo(q('.rubber'), { y: -90, opacity: 1 }, { y: 0, duration: 0.35, ease: 'power3.in' }, 0.25)
+      .to(q('.rubber'), { scaleY: 0.8, svgOrigin: '201 102', duration: 0.07, yoyo: true, repeat: 1 })
+      .fromTo(q('.mark-g'), { opacity: 0, scale: 1.5, svgOrigin: '201 107' }, { opacity: 1, scale: 1, duration: 0.2, ease: 'back.out(3)' }, '<')
+      .to(q('.cv'), { x: 1, duration: 0.04, yoyo: true, repeat: 3 }, '<')
+      .to(q('.rubber'), { y: -100, opacity: 0, duration: 0.45, ease: 'power2.out' }, '+=0.15')
+      .to(q('.brows'), { y: -1 }, '<');
+    return { hover, pick };
+  },
+
+  engineer(svg) {
+    const q = (s) => $(s, svg);
+    const typing = gsap.timeline({ repeat: -1 })
+      .to(q('.hand-l'), { y: -3, duration: 0.11, yoyo: true, repeat: 1 })
+      .to(q('.hand-r'), { y: -3, duration: 0.11, yoyo: true, repeat: 1 })
+      .to(q('.hand-l'), { y: -2, duration: 0.09, yoyo: true, repeat: 1 })
+      .to({}, { duration: 0.25 });
+    const scroll = gsap.to(q('.code'), { y: -112, duration: 7, ease: 'none', repeat: -1 });
+    const glow = gsap.to(q('.glow'), { opacity: 0.24, duration: 0.15, repeat: -1, yoyo: true, repeatDelay: 0.6, ease: 'steps(1)' });
+    const hover = gsap.timeline({ paused: true })
+      .to(typing, { timeScale: 2.6, duration: 0.3 }, 0)
+      .to(scroll, { timeScale: 5, duration: 0.3 }, 0)
+      .to(q('.head'), { y: 3, duration: 0.3, ease: 'power2.out' }, 0);
+    const pick = () => gsap.timeline()
+      .add(() => { hover.reverse(); typing.pause(); scroll.pause(); glow.pause(); })
+      .to(q('.code'), { opacity: 0, duration: 0.2 }, 0.1)
+      .fromTo(q('.success'), { opacity: 0, scale: 0.4, svgOrigin: '201 52' }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2.5)' }, 0.25)
+      .to(q('.hand-r'), { x: -22, y: -58, duration: 0.3, ease: 'power2.out' }, 0.2)
+      .to(q('.glasses'), { y: -3, duration: 0.12 }, '>-0.05')
+      .to(q('.hand-r'), { x: 0, y: 0, duration: 0.35, ease: 'power2.inOut' }, '+=0.15')
+      .to(q('.mouth'), { opacity: 0, duration: 0.1 }, 0.4)
+      .to(q('.smile'), { opacity: 1, duration: 0.1 }, 0.4)
+      .to(q('.glow'), { opacity: 0.3, duration: 0.3 }, 0.25);
+    return { hover, pick };
+  },
+
+  curious(svg) {
+    const q = (s) => $(s, svg);
+    gsap.set(q('.head'), { rotation: -6, svgOrigin: '120 96' });
+    const sway = gsap.to(q('.head'), { rotation: 4, svgOrigin: '120 96', duration: 1.8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    gsap.to(q('.qm1'), { y: -5, rotation: 10, transformOrigin: '50% 80%', duration: 1.1, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    const extra = $$('.qm2, .qm3, .qm4', svg);
+    const hover = gsap.timeline({ paused: true, onReverseComplete: () => sway.play() })
+      .add(() => sway.pause(), 0)
+      .to(q('.head'), { rotation: -12, svgOrigin: '120 96', duration: 0.35, ease: 'power2.out' }, 0)
+      .fromTo(extra, { opacity: 0, scale: 0, transformOrigin: '50% 80%' }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.08, ease: 'back.out(3)' }, 0)
+      .to(q('.lens'), { x: 2, y: -79, rotation: -10, svgOrigin: '130 146', duration: 0.45, ease: 'back.out(1.6)' }, 0.1);
+    const pick = () => gsap.timeline()
+      .add(() => { sway.pause(); hover.play(); })
+      .to([q('.qm1'), ...extra], { opacity: 0, scale: 0, transformOrigin: '50% 80%', duration: 0.25, stagger: 0.05, ease: 'back.in(2)' }, 0.45)
+      .to(q('.lens'), { y: 0, rotation: 0, duration: 0.4, ease: 'power2.in' }, 0.5)
+      .to(q('.head'), { rotation: 0, svgOrigin: '120 96', duration: 0.4, ease: 'back.out(2)' }, 0.55)
+      .fromTo(q('.bulb'), { opacity: 0, scale: 0, svgOrigin: '184 40' }, { opacity: 1, scale: 1, duration: 0.6, ease: 'elastic.out(1, 0.5)' }, 0.7)
+      .fromTo($$('.ray', svg), { opacity: 0 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 3, stagger: 0.04 }, 0.85)
+      .to(q('.mouth'), { opacity: 0, duration: 0.1 }, 0.7)
+      .to(q('.smile'), { opacity: 1, duration: 0.1 }, 0.7)
+      .to(q('.eyes'), { scale: 1.15, svgOrigin: '120 67', duration: 0.2, yoyo: true, repeat: 1 }, 0.75);
+    return { hover, pick };
+  },
+};
+
+export function characterRig(card) {
+  const svg = $('svg.fig', card);
+  const build = RIGS[card.dataset.p];
+  if (!svg || !build) return null;
+  steamLoop(svg);
+  blinkLoop($('.eyes', svg));
+  return build(svg);
 }

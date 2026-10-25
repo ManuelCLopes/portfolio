@@ -1,9 +1,5 @@
 import { PERSONAS, persona as META } from '../personas';
-
-const Preview = ({ p }) => {
-  if (p === 'recruiter') return <span className="fx-timer" aria-hidden="true" />;
-  return null;
-};
+import Character from './Characters';
 
 export default function Chooser({ current, onPick, cardsRef }) {
   return (
@@ -17,6 +13,7 @@ export default function Chooser({ current, onPick, cardsRef }) {
             const m = META[p];
             return (
               <button key={p} type="button" className="pick" data-p={p} style={{ '--c': m.accent }} aria-pressed={current === p} onClick={(e) => onPick(p, e.currentTarget)}>
+                <Character persona={p} />
                 <span className="tag">{p === 'curious' ? 'Just curious' : m.label}</span>
                 <strong>
                   {m.pick.title}
@@ -27,7 +24,6 @@ export default function Chooser({ current, onPick, cardsRef }) {
                 <span className="meter" aria-label={`Detail level ${m.pick.detail} of 5`}>
                   {[1, 2, 3, 4, 5].map((i) => <i key={i} className={i <= m.pick.detail ? 'on' : ''} />)}
                 </span>
-                <Preview p={p} />
               </button>
             );
           })}

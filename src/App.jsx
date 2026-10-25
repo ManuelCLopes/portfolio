@@ -25,10 +25,12 @@ export default function App() {
   const [current, setCurrent] = useState(initialPersona);
   const [readTime, setReadTime] = useState('');
   const [ready, setReady] = useState(false);
+  const [rigKey, setRigKey] = useState(0);
   const motion = useRef(motionAllowed()).current;
   const mainRef = useRef(null), wipeRef = useRef(null), wipeLabelRef = useRef(null), cardsRef = useRef(null);
   const meterLabelRef = useRef(null), meterFillRef = useRef(null);
   const busy = useRef(false);
+  const rigs = useRef(new Map()); // chooser card -> its character's { hover, pick }
 
   const setMeter = useCallback((p) => {
     if (!current) return;
@@ -64,6 +66,35 @@ export default function App() {
     if (motion && ready && cardsRef.current) anim.introCards(cardsRef.current.children);
   }, [motion, ready]);
 
+  // Each chooser card's character idles, reacts on hover and focus, and plays its reaction when picked.
+  useEffect(() => {
+    if (!motion || !ready || !cardsRef.current) return undefined;
+    const cards = [...cardsRef.current.children];
+    const ctxs = cards.map((card) => {
+      const ctx = anim.gsap.context(() => {}, card);
+      ctx.add(() => {
+        const rig = anim.characterRig(card);
+        // The reaction is created in the same context, so the reset below reverts it too.
+        if (rig) rigs.current.set(card, { ...rig, pick: () => { let tl; ctx.add(() => { tl = rig.pick(); }); return tl; } });
+      });
+      return ctx;
+    });
+    const on = (fn) => (e) => { if (e.pointerType !== 'touch' && !busy.current) fn(rigs.current.get(e.currentTarget)?.hover); };
+    const enter = on((h) => h?.play()), leave = on((h) => h?.reverse());
+    cards.forEach((c) => {
+      c.addEventListener('pointerenter', enter); c.addEventListener('pointerleave', leave);
+      c.addEventListener('focus', enter); c.addEventListener('blur', leave);
+    });
+    return () => {
+      cards.forEach((c) => {
+        c.removeEventListener('pointerenter', enter); c.removeEventListener('pointerleave', leave);
+        c.removeEventListener('focus', enter); c.removeEventListener('blur', leave);
+      });
+      ctxs.forEach((ctx) => ctx.revert());
+      rigs.current.clear();
+    };
+  }, [motion, ready, rigKey]);
+
   useEffect(() => {
     let t;
     const onResize = () => { clearTimeout(t); t = setTimeout(() => anim?.ScrollTrigger.refresh(), 250); };
@@ -90,10 +121,16 @@ export default function App() {
   };
 
   const pick = (p, el) => {
+    if (busy.current) return;
     if (motion && ready && cardsRef.current) {
+      busy.current = true;
       const others = [...cardsRef.current.children].filter((c) => c !== el);
+      const reaction = rigs.current.get(el)?.pick();
       anim.dropOthers(el, others);
-      setTimeout(() => switchTo(p, el, { scroll: true }), 350);
+      // Let the character finish its reaction, then wipe; reset the characters once the chooser is out of view.
+      const wait = Math.min(reaction?.duration() ?? 0.35, 1.6) * 1000;
+      setTimeout(() => { busy.current = false; switchTo(p, el, { scroll: true }); }, wait);
+      setTimeout(() => setRigKey((k) => k + 1), wait + 1800);
     } else switchTo(p, el, { scroll: true });
   };
 

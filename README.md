@@ -4,7 +4,7 @@ This is the personal portfolio website of Manuel Lopes, showcasing my profession
 
 ## Features:
 
-- Persona chooser: recruiter, engineer or just curious. Nothing is shown until the visitor picks one; a choice can be linked directly (`#recruiter`, `#engineer`, `#curious`).
+- Persona chooser: recruiter, engineer or just curious, each with an animated character that reacts on hover and when picked. Nothing is shown until the visitor picks one; a choice can be linked directly (`#recruiter`, `#engineer`, `#curious`).
 
 - Each persona gets its own copy, level of detail and scroll choreography; switch at any time from the sticky bar.
 

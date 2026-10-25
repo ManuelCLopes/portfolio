@@ -10,13 +10,14 @@
   --accent-ink: #ffffff;
   --success: #138a4b;
   --danger: #c2292e;
+  --hair: #23262e; --white: #ffffff; --toast: #e2b273; --sauce: #d4562a; --yolk: #f2b632; /* persona characters */
   --display: "Archivo", "Arial Narrow", Arial, sans-serif;
   --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #111318; --surface: #1a1d24; --ink: #eceef2; --mute: #9aa2b1; --rule: #2c313b; --success: #4fd18b; --danger: #ff7b7f; color-scheme: dark; }
+  :root { --bg: #111318; --surface: #1a1d24; --ink: #eceef2; --mute: #9aa2b1; --rule: #2c313b; --success: #4fd18b; --danger: #ff7b7f; --hair: #0b0c10; --white: #f4f5f7; color-scheme: dark; }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -45,8 +46,38 @@ a { color: var(--accent); }
 .pick .meter { display: flex; gap: 3px; margin-top: 4px; }
 .pick .meter i { width: 18px; height: 5px; border-radius: 2px; background: var(--rule); }
 .pick .meter i.on { background: var(--c); }
-.pick .fx-timer { position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: var(--c); transform-origin: left; opacity: 0; }
-.pick:hover .fx-timer, .pick:focus-visible .fx-timer { opacity: 1; transform: scaleX(0); transition: transform 3s linear, opacity .2s; }
+.pick .stage { display: block; margin: -8px -8px 6px; border-radius: 9px; background: color-mix(in srgb, var(--c) 9%, var(--surface)); overflow: hidden; }
+.pick .stage svg { display: block; width: 100%; height: auto; }
+
+/* Persona characters: one outline weight, fills from tokens so both themes work. */
+.fig * { stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.fig .face { fill: color-mix(in srgb, var(--c) 16%, var(--surface)); }
+.fig .acc { fill: var(--c); }
+.fig .dark { fill: color-mix(in srgb, var(--c) 62%, #000); }
+.fig .surf { fill: var(--surface); }
+.fig .hair { fill: var(--hair); }
+.fig .ink { fill: var(--ink); stroke: none; }
+.fig .none { fill: none; }
+.fig .hs { stroke: var(--c); stroke-width: 4; fill: none; }
+.fig .desk { fill: color-mix(in srgb, var(--c) 22%, var(--surface)); }
+.fig .line { fill: var(--rule); stroke: none; }
+.fig .codeA { fill: var(--c); stroke: none; }
+.fig .codeB { fill: var(--mute); stroke: none; opacity: .6; }
+.fig .glow { fill: var(--c); stroke: none; opacity: .14; }
+.fig .toast { fill: var(--toast); }
+.fig .sauce { fill: var(--sauce); }
+.fig .yolk { fill: var(--yolk); stroke: none; }
+.fig .white { fill: var(--white); }
+.fig .shine { fill: var(--white); stroke: none; }
+.fig text { stroke: none; }
+.fig .qmark { font: 900 30px var(--display); fill: var(--c); }
+.fig .mark { font: 900 10px var(--display); fill: var(--c); letter-spacing: .02em; }
+.fig .mark-box { fill: none; stroke: var(--c); stroke-width: 2; }
+.fig .ok { font: 600 7px var(--mono); fill: var(--ink); }
+.fig .tick { fill: none; stroke: var(--surface); stroke-width: 3.5; }
+.fig .ray { stroke: var(--yolk); stroke-width: 3; }
+/* Hidden until a character's reaction reveals them. */
+.fig .reveal, .fig .alt { opacity: 0; }
 .pick .caret { display: inline-block; width: .5em; height: .9em; background: var(--c); vertical-align: -0.08em; margin-left: 4px; opacity: 0; }
 .pick:hover .caret, .pick:focus-visible .caret { opacity: 1; animation: blink 1s steps(1) infinite; }
 .pick .qm { display: inline-block; color: var(--c); }
@@ -213,5 +244,4 @@ footer { padding-block: 48px 40px; color: var(--mute); font-size: 13px; text-ali
 }
 @media (prefers-reduced-motion: reduce) {
   .pick .caret, .pick .qm, h1.typing::after { animation: none !important; }
-  .pick:hover .fx-timer { transition: none; }
 }
