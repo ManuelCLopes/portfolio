@@ -40,8 +40,11 @@ test('each persona rewrites the page', async () => {
   expect(screen.getByText('Stack and trade-offs')).toBeInTheDocument();
   expect(screen.getByRole('link', { name: 'francesinhas.top' })).toHaveAttribute('href', 'https://francesinhas.top');
 
+  expect(within(document.querySelector('footer')).getByRole('link', { name: 'read the source' })).toHaveAttribute('href', 'https://github.com/ManuelCLopes/portfolio');
+
   await user.click(within(lens).getByRole('button', { name: 'Curious' }));
   expect(screen.getByText('How I got here')).toBeInTheDocument();
+  expect(document.querySelector('footer')).toHaveTextContent('powered by francesinhas');
 });
 
 test('private repositories never link to their code, and the GitHub profile comes last', () => {

@@ -17,6 +17,13 @@ const initialPersona = () => {
 };
 
 
+// The sign-off follows the persona too.
+const FOOTER = {
+  recruiter: 'You made it past the 30 seconds. Thanks for reading.',
+  engineer: <>process exited with code 0 · <a href="https://github.com/ManuelCLopes/portfolio" target="_blank" rel="noopener noreferrer">read the source</a></>,
+  curious: 'Made in Viseu, powered by francesinhas.',
+};
+
 let anim = null; // the GSAP module, loaded lazily so tests and reduced-motion readers skip it
 
 // While the animation code loads, the chooser cards and the page stay hidden (see .anim-pending in index.css),
@@ -162,7 +169,7 @@ export default function App() {
           </main>
         </>
       )}
-      <footer className="wrap">Manuel Lopes · built with React, Vite and GSAP · <a href="https://github.com/ManuelCLopes/portfolio" target="_blank" rel="noopener noreferrer">source</a></footer>
+      <footer className="wrap">Manuel Lopes · {current ? FOOTER[current] : 'Viseu, Portugal'}</footer>
       <div className="wipe" ref={wipeRef} aria-hidden="true"><span ref={wipeLabelRef} /></div>
     </>
   );
