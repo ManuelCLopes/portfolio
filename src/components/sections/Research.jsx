@@ -53,7 +53,7 @@ export default function Research({ persona }) {
   return (
     <>
       <p className="eyebrow">Fun fact</p>
-      <h2>Five scientific papers</h2>
+      <h2>{publications.length} scientific papers</h2>
       <p className="lede"><Jargon explain text="Yes, really. One reads text from photos on your phone, another keeps construction workers safe with [[sensors]]." /></p>
       <Papers />
       <h3 className="sub">And a few certificates</h3>

@@ -59,7 +59,7 @@ export default function Projects({ persona }) {
       <>
         <p className="eyebrow">Side projects</p>
         <h2>He ships after hours too</h2>
-        <p className="lede">Four products built end to end, each with the signal it sends. {others.length} smaller ones below.</p>
+        <p className="lede">Products built end to end, each with the signal it sends, plus a few smaller ones below.</p>
         <div className="cards">
           {featured.map((p) => (
             <article className="card" key={p.name}>
