@@ -245,8 +245,9 @@ footer { padding-block: 48px 40px; color: var(--mute); font-size: 13px; text-ali
 @media (max-width: 860px) {
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .preview { position: static; }
-  .peek { left: 24px; top: 0; }
-  .peek-say { right: auto; left: -8px; }
+  /* Narrow: the form sits above, so the character rises from the card's top-right corner, clear of the label. */
+  .peek { left: auto; right: 12px; top: 0; }
+  .peek-say { right: 0; }
 }
 @media (max-width: 600px) {
   .facts, .cards { grid-template-columns: minmax(0, 1fr); }
