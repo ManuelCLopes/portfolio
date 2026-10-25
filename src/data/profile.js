@@ -123,9 +123,9 @@ export const experience = [
   },
   {
     company: 'Capgemini', website: 'https://www.capgemini.com/', role: 'Lead Software Engineer', start: '2022-07', end: '2024-06',
-    recruiterNote: 'Led delivery and mentored junior developers.',
-    engineer: 'OutSystems apps for automatic payment terminal management in banking. Mentoring and code review.',
-    curious: 'Leading a team, helping newer developers and checking their work before it went live.',
+    recruiterNote: 'A go-to person on the team. Owned features from design to delivery and mentored junior developers.',
+    engineer: 'OutSystems apps for automatic payment terminal management in banking. Responsible for features from design and concept through delivery, and mentored junior developers.',
+    curious: 'Building apps for banks, from the first sketch to launch day. One of the people the team came to with questions, and a helping hand for newer developers.',
   },
   {
     company: 'Softinsa', website: 'https://www.softinsa.pt/pt/', role: 'Software Developer', start: '2020-09', end: '2022-06',
