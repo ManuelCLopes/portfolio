@@ -209,6 +209,7 @@ form input, form textarea { font: 400 15px var(--body); color: var(--ink); backg
 form button { justify-self: start; font: 700 14px var(--body); background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 11px 18px; cursor: pointer; }
 form button:disabled { opacity: .6; cursor: progress; }
 .out { font-size: 14px; min-height: 1.4em; }
+form .trap { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .out.success { color: var(--success); }
 .out.error { color: var(--danger); }
 .mode-engineer form { font-family: var(--mono); }

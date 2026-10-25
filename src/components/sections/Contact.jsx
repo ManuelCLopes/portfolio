@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { CONTACT_ENDPOINT, socials } from '../../data/profile';
+import { CONTACT_ENDPOINT, WEB3FORMS_KEY, socials } from '../../data/profile';
 import { ArrowUpRight } from '../Icons';
 import { Peek } from '../Characters';
 import { motionAllowed } from '../../motion';
@@ -20,6 +20,10 @@ const COPY = {
 };
 
 // The API takes { name, email, message }; persona-specific fields are folded into the message.
+const TAG = { recruiter: 'Recruiter', engineer: 'Engineer', curious: 'Curious' };
+// The subject carries the persona so messages can be filtered in the inbox.
+export const buildSubject = (persona, f) => `[${TAG[persona]}] Portfolio message from ${f.name?.trim() || 'a visitor'}`;
+
 export const buildMessage = (persona, f) => {
   if (persona === 'recruiter') return `[Recruiter] Company: ${f.company || '-'}\nRole: ${f.role || '-'}\n\n${f.message || ''}`.trim();
   if (persona === 'engineer') return `[Engineer] ${f.title || '(no title)'}\n\n${f.message || ''}`.trim();
@@ -84,11 +88,12 @@ export default function Contact({ persona }) {
   const [status, setStatus] = useState({ type: '', message: '' });
   const [sending, setSending] = useState(false);
   const formRef = useRef(null);
+  const trapRef = useRef(null); // hidden checkbox: people never see it, simple bots tick it
   const set = (k) => (e) => setFields((f) => ({ ...f, [k]: e.target.value }));
 
   // Draws the eye to the first empty field (or the first field) and puts the cursor there.
   const nudgeForm = () => {
-    const inputs = [...(formRef.current?.querySelectorAll('input, textarea') || [])];
+    const inputs = [...(formRef.current?.querySelectorAll('input:not(.trap), textarea') || [])];
     const field = inputs.find((f) => !f.value) || inputs[0];
     if (!field) return;
     field.classList.remove('nudge');
@@ -114,10 +119,19 @@ export default function Contact({ persona }) {
     try {
       const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: val('name'), email: val('email'), message: buildMessage(persona, fields) }),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: buildSubject(persona, fields),
+          from_name: 'Portfolio contact form',
+          name: val('name'),
+          email: val('email'),
+          message: buildMessage(persona, fields),
+          botcheck: !!trapRef.current?.checked,
+        }),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) throw new Error(data.message || String(res.status));
       setStatus({ type: 'success', message: c.sent });
       setFields({});
     } catch {
@@ -141,6 +155,7 @@ export default function Contact({ persona }) {
       <p className="lede">{c.lede}</p>
       <div className="contact-grid">
         <form onSubmit={submit} ref={formRef}>
+          <input type="checkbox" name="botcheck" ref={trapRef} className="trap" tabIndex={-1} autoComplete="off" aria-hidden="true" />
           {persona === 'engineer' && field('title', 'title', { placeholder: 'feat: let’s build something', required: true })}
           {field('name', persona === 'engineer' ? 'author' : 'Your name', { autoComplete: 'name', required: true })}
           {field('email', persona === 'engineer' ? 'email' : 'Your email', { type: 'email', autoComplete: 'email', required: true })}
