@@ -130,13 +130,13 @@ export const experience = [
     curious: 'Building apps for banks, from the first sketch to launch day. One of the people the team came to with questions, and a helping hand for newer developers.',
   },
   {
-    company: 'Softinsa', website: 'https://www.softinsa.pt/pt/', role: 'Software Developer', start: '2020-09', end: '2022-06',
+    company: 'Softinsa', website: 'https://softinsa.pt/', role: 'Software Developer', start: '2020-09', end: '2022-06',
     recruiterNote: 'Built two OutSystems web apps for banking: vault and property management.',
     engineer: 'OutSystems for banking: a Reactive web app for vault management and a Traditional web app for properties held for divestment.',
     curious: 'Building apps for banks with a tool that lets you program by drawing boxes (it’s called [[low-code]]).',
   },
   {
-    company: 'Softinsa', website: 'https://www.softinsa.pt/pt/', role: 'Trainee', start: '2020-02', end: '2020-06',
+    company: 'Softinsa', website: 'https://softinsa.pt/', role: 'Trainee', start: '2020-02', end: '2020-06',
     recruiterNote: 'First role: a project time-tracking app that works offline.',
     engineer: 'Online/offline mobile and web app for projects and the hours each collaborator claims.',
     curious: 'First job: an app to track who worked on what, even without internet.',
@@ -150,7 +150,7 @@ export const education = [
 
 export const publications = [
   { title: 'On the use of Message Brokers for Real-Time Monitoring Systems', venue: 'DiTTEt 2024', link: 'https://link.springer.com/chapter/10.1007/978-3-031-66635-3_12' },
-  { title: 'An Audit Framework for Civil Construction Safety Management and Supervision', venue: 'DiTTEt 2024', link: 'https://www.researchgate.net/publication/382069042_An_Audit_Framework_for_Civil_Construction_Safety_Management_and_Supervision' },
+  { title: 'An Audit Framework for Civil Construction Safety Management and Supervision', venue: 'DiTTEt 2024', link: 'https://link.springer.com/chapter/10.1007/978-3-031-66635-3_24' },
   { title: 'Database Performance on Android Devices: A Comparative Analysis', venue: 'Marketing and Smart Technologies 2023', link: 'https://link.springer.com/chapter/10.1007/978-981-19-9099-1_18' },
   { title: 'Mobile Optical Character Recognition', venue: 'IBIMA 2022', link: 'https://ibima.org/accepted-paper/mobile-optical-character-recognition' },
   { title: 'An Intelligent and Scalable IoT Monitoring Framework for Safety in Civil Construction Workspaces', venue: 'DiTTEt 2022', link: 'https://link.springer.com/chapter/10.1007/978-3-031-14859-0_6' },
