@@ -107,9 +107,9 @@ export const projects = [
 export const experience = [
   {
     company: 'Talkdesk', website: 'https://www.talkdesk.com', role: 'Software Engineer', start: '2024-12', end: null,
-    recruiterNote: 'Kotlin on a generative-AI customer experience platform, in the cloud and on premises.',
-    engineer: 'Generative-AI customer experience platform, deployed in the cloud and on premises. Mostly Kotlin.',
-    curious: 'Building software that helps companies talk to their customers.',
+    recruiterNote: 'Mostly Kotlin, plus Ruby and React, on a generative-AI customer experience platform.',
+    engineer: 'Generative-AI customer experience platform, in the cloud and on premises. Mostly Kotlin, some Ruby and React. PostgreSQL and Cassandra for data, Kafka and RabbitMQ for messaging, Dynatrace and Grafana to see what production is doing.',
+    curious: 'Building software that helps companies talk to their customers, with AI in the mix. Mostly written in [[Kotlin]], with an eye on the [[dashboards]] that show when something’s off.',
   },
   {
     company: 'Bitsight', website: 'https://www.bitsight.com', role: 'Software Engineer', start: '2024-07', end: '2024-08',
@@ -172,6 +172,8 @@ export const jargon = {
   AI: 'Software that can read and write text, a bit like a very fast intern.',
   'the cloud': 'Someone else’s computer, rented by the hour.',
   'low-code': 'Programming by connecting visual blocks instead of typing everything.',
+  Kotlin: 'A programming language, popular for Android apps and the servers behind them.',
+  dashboards: 'Screens full of live charts showing whether the system is healthy, like a car’s instrument panel.',
   sensors: 'Little devices that measure things like temperature or movement and report back.',
 };
 
