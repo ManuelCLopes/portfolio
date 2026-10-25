@@ -7,10 +7,11 @@ const Preview = ({ p }) => {
 
 export default function Chooser({ current, onPick, cardsRef }) {
   return (
-    <header className="chooser wrap" id="choose">
+    <header className={`chooser wrap${current ? '' : ' alone'}`} id="choose">
       <div className="col">
         <h1 className="q">Who’s scrolling?</h1>
         <p className="sub">Same person, three versions of the story. Pick yours and the whole site rewrites itself, motion included. You can switch at any time.</p>
+        {!current && <p className="hint">Pick one to start reading.</p>}
         <div className="personas" role="group" aria-label="Choose how you want to read this site" ref={cardsRef}>
           {PERSONAS.map((p) => {
             const m = META[p];

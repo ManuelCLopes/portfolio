@@ -30,6 +30,9 @@ a { color: var(--accent); }
 .chooser { padding-block: 64px 56px; overflow: hidden; }
 .chooser .q { font: 900 clamp(44px, 9vw, 112px)/.88 var(--display); font-stretch: 125%; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: pretty; }
 .chooser .sub { color: var(--mute); margin: 0 0 36px; }
+/* Before a persona is picked the chooser is the whole page. */
+.chooser.alone { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.chooser .hint { font: 600 12px var(--mono); color: var(--mute); letter-spacing: .08em; text-transform: uppercase; margin: -20px 0 20px; }
 .personas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .pick {
   position: relative; overflow: hidden; text-align: left; background: var(--surface); color: var(--ink); border: 2px solid var(--rule); border-radius: 14px;

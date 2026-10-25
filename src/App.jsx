@@ -9,16 +9,10 @@ import Research from './components/sections/Research';
 import Contact from './components/sections/Contact';
 import { isPersona, persona as META } from './personas';
 
-const STORAGE_KEY = 'persona';
-
+// Nothing is shown until the visitor picks a persona. Only a shared link (#engineer…) skips the question.
 const initialPersona = () => {
   const fromHash = window.location.hash.slice(1);
-  if (isPersona(fromHash)) return fromHash;
-  try {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (isPersona(saved)) return saved;
-  } catch { /* storage unavailable */ }
-  return 'curious';
+  return isPersona(fromHash) ? fromHash : null;
 };
 
 // Animations run only where the browser supports them and the reader hasn't asked for reduced motion.
@@ -37,23 +31,25 @@ export default function App() {
   const busy = useRef(false);
 
   const setMeter = useCallback((p) => {
+    if (!current) return;
     if (meterLabelRef.current) meterLabelRef.current.textContent = META[current].meter(p);
     if (meterFillRef.current) meterFillRef.current.style.width = `${Math.round(p * 100)}%`;
   }, [current]);
 
   useEffect(() => { if (motion) loadAnim().then(() => setReady(true)); }, [motion]);
 
-  // Accent, reading time and remembered choice follow the persona.
+  // Accent and reading time follow the persona.
   useLayoutEffect(() => {
+    if (!current) return;
     document.documentElement.style.setProperty('--accent', META[current].accent);
     const words = (mainRef.current?.textContent || '').trim().split(/\s+/).length;
     const secs = Math.round((words / 230) * 60);
     setReadTime(`· ≈ ${secs < 60 ? `${secs} s` : `${Math.round(secs / 60)} min`} read`);
-    try { window.localStorage.setItem(STORAGE_KEY, current); } catch { /* storage unavailable */ }
   }, [current]);
 
   // Scroll choreography for the current persona, rebuilt (and fully reverted) on every switch.
   useLayoutEffect(() => {
+    if (!current) return undefined;
     if (!motion || !ready) {
       const onScroll = () => setMeter(window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight));
       window.addEventListener('scroll', onScroll, { passive: true });
@@ -75,7 +71,7 @@ export default function App() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const scrollToContent = () => mainRef.current?.scrollIntoView();
+  const scrollToContent = () => mainRef.current?.scrollIntoView?.();
 
   const switchTo = (p, origin, { scroll = false } = {}) => {
     if (busy.current || (p === current && !scroll)) return;
@@ -104,14 +100,18 @@ export default function App() {
   return (
     <>
       <Chooser current={current} onPick={pick} cardsRef={cardsRef} />
-      <LensBar current={current} onSwitch={switchTo} meterLabelRef={meterLabelRef} meterFillRef={meterFillRef} readTime={readTime} />
-      <main ref={mainRef} className={`mode-${current}`} key={current}>
-        <section className="hero wrap"><div className="col"><Hero persona={current} /></div></section>
-        <section className="wrap" id="projects"><div className="col"><Projects persona={current} /></div></section>
-        <section className="wrap" id="career"><div className="col"><Career persona={current} /></div></section>
-        <section className="wrap" id="research"><div className="col"><Research persona={current} /></div></section>
-        <section className="wrap" id="contact"><div className="col"><Contact persona={current} /></div></section>
-      </main>
+      {current && (
+        <>
+          <LensBar current={current} onSwitch={switchTo} meterLabelRef={meterLabelRef} meterFillRef={meterFillRef} readTime={readTime} />
+          <main ref={mainRef} className={`mode-${current}`} key={current}>
+            <section className="hero wrap"><div className="col"><Hero persona={current} /></div></section>
+            <section className="wrap" id="projects"><div className="col"><Projects persona={current} /></div></section>
+            <section className="wrap" id="career"><div className="col"><Career persona={current} /></div></section>
+            <section className="wrap" id="research"><div className="col"><Research persona={current} /></div></section>
+            <section className="wrap" id="contact"><div className="col"><Contact persona={current} /></div></section>
+          </main>
+        </>
+      )}
       <footer className="wrap">Manuel Lopes · built with React, Vite and GSAP · <a href="https://github.com/ManuelCLopes/portfolio" target="_blank" rel="noopener noreferrer">source</a></footer>
       <div className="wipe" ref={wipeRef} aria-hidden="true"><span ref={wipeLabelRef} /></div>
     </>

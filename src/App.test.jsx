@@ -10,14 +10,23 @@ beforeEach(() => {
   vi.restoreAllMocks();
 });
 
-test('asks who is scrolling and starts in the curious persona', () => {
+test('shows nothing but the question until a persona is picked', async () => {
+  const user = userEvent.setup();
+  window.localStorage.setItem('persona', 'engineer'); // an old remembered choice must not skip the question
   render(<App />);
   expect(screen.getByRole('heading', { level: 1, name: /who’s scrolling/i })).toBeInTheDocument();
+  expect(hero()).toBeNull();
+  expect(screen.queryByRole('group', { name: /switch persona/i })).toBeNull();
+
+  const chooser = screen.getByRole('group', { name: /choose how you want to read/i });
+  await user.click(within(chooser).getAllByRole('button')[2]);
   expect(hero()).toHaveTextContent("Hi, I'm Manuel. I make computers do useful things.");
+  expect(window.location.hash).toBe('#curious');
 });
 
 test('each persona rewrites the page', async () => {
   const user = userEvent.setup();
+  window.history.replaceState(null, '', '/#curious');
   render(<App />);
   const lens = screen.getByRole('group', { name: /switch persona/i });
 
