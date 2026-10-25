@@ -1,43 +1,16 @@
 {
   "name": "Manuel Lopes - Portfolio",
-  "short_name": "Portfolio",
-  "description": "Solving problems, building cool stuff, and coding things that probably work. Here's my journey through tech and innovation!",
-  "start_url": "/index.html",
+  "short_name": "Manuel Lopes",
+  "description": "Recruiter, engineer or just curious? Same person, three versions of the story.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#1a202c", 
-  "theme_color": "#1a202c", 
-  "orientation": "portrait",
+  "background_color": "#111318",
+  "theme_color": "#111318",
   "icons": [
-    {
-      "src": "/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "logo192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "logo512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
-  "lang": "en-US"
+  "lang": "en"
 }
