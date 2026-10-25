@@ -110,6 +110,12 @@ h1.typing::after { content: ""; display: inline-block; width: .45em; height: .8e
 .card .signal b { color: var(--accent); }
 .links { display: flex; flex-wrap: wrap; gap: 6px 16px; font: 600 13px var(--body); margin-top: 4px; }
 .links a { display: inline-flex; align-items: center; white-space: nowrap; }
+.private { color: var(--mute); font-weight: 500; }
+.status { justify-self: start; font: 600 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 2px 9px; }
+/* No CSS transition on transform here: GSAP animates the cards' transforms. */
+.card.more { text-decoration: none; color: var(--ink); border-style: dashed; border-width: 2px; background: transparent; align-content: center; transition: border-color .2s, background-color .2s; }
+.card.more:hover, .card.more:focus-visible { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.card.more .links span { display: inline-flex; align-items: center; color: var(--accent); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { font: 400 11.5px var(--mono); padding: 3px 8px; border-radius: 6px; background: var(--bg); border: 1px solid var(--rule); }
 .note { font: 400 12.5px/1.6 var(--mono); color: var(--mute); border-left: 2px solid var(--accent); padding-left: 10px; }

@@ -35,6 +35,20 @@ test('each persona rewrites the page', async () => {
   expect(screen.getByText('How I got here')).toBeInTheDocument();
 });
 
+test('private repositories never link to their code, and the GitHub profile card is last', () => {
+  window.history.replaceState(null, '', '/#engineer');
+  render(<App />);
+  const projects = document.querySelector('#projects');
+  const codeLinks = within(projects).getAllByRole('link', { name: /code on github/i }).map((a) => a.getAttribute('href'));
+  ['aura-league', 'radar-real-estate', 'francesinhas', 'real-estate-lead-ops'].forEach((repo) => {
+    expect(codeLinks.some((h) => h.endsWith(`/${repo}`))).toBe(false);
+  });
+  expect(within(projects).getAllByText('Private repo').length).toBeGreaterThan(0);
+  expect(within(projects).getByRole('link', { name: /aura league|auraleague\.app/i })).toHaveAttribute('href', 'https://auraleague.app');
+  const cards = projects.querySelectorAll('.cards > *');
+  expect(cards[cards.length - 1]).toHaveAttribute('href', 'https://github.com/ManuelCLopes');
+});
+
 test('opens the persona from the link hash', () => {
   window.history.replaceState(null, '', '/#engineer');
   render(<App />);
