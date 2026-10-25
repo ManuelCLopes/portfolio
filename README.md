@@ -1,30 +1,28 @@
 # Portfolio Website
 
-This is the personal portfolio website of Manuel Lopes, showcasing my professional journey, projects, publications, and certifications. The website is built with modern frontend technologies like React and Framer Motion, featuring animations, a carousel of technologies, and a floating action button for certifications.
+This is the personal portfolio website of Manuel Lopes, showcasing my professional journey, projects, publications, and certifications. The website is built with React and GSAP. Visitors pick who they are (recruiter, engineer or just curious) and the whole site rewrites its copy, level of detail and scroll animations for them.
 
 ## Features:
 
-- Home section with dynamic titles and smooth scroll.
+- Persona chooser: recruiter, engineer or just curious. The choice is remembered and can be linked directly (`#recruiter`, `#engineer`, `#curious`).
 
-- Projects section showcasing my work with relevant technologies and links to GitHub.
+- Each persona gets its own copy, level of detail and scroll choreography; switch at any time from the sticky bar.
 
-- Publications and Education section with a creative layout and motion animations.
+- Projects with stack, notes and links to GitHub and live demos.
 
-- Experience timeline displaying roles in my professional career.
-
-- Floating Certifications Button that expands on click, showing my certifications.
-
-- Other Technologies carousel for skills not mentioned in specific projects.
+- Career timeline with tenure, publications, degrees and certifications.
 
 - Contact form connected to a backend API to send emails.
+
+- Respects reduced-motion settings and works without animations.
 
 ## Technologies used:
 
 - React (built with Vite)
 
-- Framer Motion for animations
+- GSAP (ScrollTrigger, MotionPath) for animations
 
-- Tailwind CSS for styling
+- Plain CSS with design tokens, light and dark
 
 - Node.js and Express for the contact form API
  
