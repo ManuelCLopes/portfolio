@@ -160,7 +160,7 @@ function Curious() {
     <rect className="surf" x="178" y="51" width="12" height="4" rx="1.5" />
     </g>
     {/* magnifying glass, hidden behind the table until it's needed */}
-    <g className="lens">
+    <g className="magnifier">
     <path className="none" d="M140 158 L156 176" style={{ strokeWidth: '6' }} />
     <circle className="surf" cx="130" cy="146" r="16" style={{ strokeWidth: '4' }} />
     <circle className="white" cx="130" cy="146" r="10" />

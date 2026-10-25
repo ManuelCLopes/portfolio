@@ -20,8 +20,11 @@
   :root { --bg: #111318; --surface: #1a1d24; --ink: #eceef2; --mute: #9aa2b1; --rule: #2c313b; --success: #4fd18b; --danger: #ff7b7f; --hair: #0b0c10; --white: #f4f5f7; color-scheme: dark; }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+/* Entrances start offset, scaled or rotated (cards sliding in from the right, stamps landing…); clipping each
+   section keeps those starting states from widening the page, and clip, unlike hidden, keeps position: sticky working. */
+main > section, footer { overflow-x: clip; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); overflow-x: clip; -webkit-font-smoothing: antialiased; }
 .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .col { width: min(1040px, 100%); margin: 0 auto; }
 a { color: var(--accent); }

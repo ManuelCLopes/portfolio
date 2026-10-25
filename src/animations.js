@@ -258,11 +258,11 @@ const RIGS = {
       .add(() => sway.pause(), 0)
       .to(q('.head'), { rotation: -12, svgOrigin: '120 96', duration: 0.35, ease: 'power2.out' }, 0)
       .fromTo(extra, { opacity: 0, scale: 0, transformOrigin: '50% 80%' }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.08, ease: 'back.out(3)' }, 0)
-      .to(q('.lens'), { x: 2, y: -79, rotation: -10, svgOrigin: '130 146', duration: 0.45, ease: 'back.out(1.6)' }, 0.1);
+      .to(q('.magnifier'), { x: 2, y: -79, rotation: -10, svgOrigin: '130 146', duration: 0.45, ease: 'back.out(1.6)' }, 0.1);
     const pick = () => gsap.timeline()
       .add(() => { sway.pause(); hover.play(); })
       .to([q('.qm1'), ...extra], { opacity: 0, scale: 0, transformOrigin: '50% 80%', duration: 0.25, stagger: 0.05, ease: 'back.in(2)' }, 0.45)
-      .to(q('.lens'), { y: 0, rotation: 0, duration: 0.4, ease: 'power2.in' }, 0.5)
+      .to(q('.magnifier'), { y: 0, rotation: 0, duration: 0.4, ease: 'power2.in' }, 0.5)
       .to(q('.head'), { rotation: 0, svgOrigin: '120 96', duration: 0.4, ease: 'back.out(2)' }, 0.55)
       .fromTo(q('.bulb'), { opacity: 0, scale: 0, svgOrigin: '184 40' }, { opacity: 1, scale: 1, duration: 0.6, ease: 'elastic.out(1, 0.5)' }, 0.7)
       .fromTo($$('.ray', svg), { opacity: 0 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 3, stagger: 0.04 }, 0.85)
