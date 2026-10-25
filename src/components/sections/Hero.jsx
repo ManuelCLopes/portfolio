@@ -38,7 +38,7 @@ export default function Hero({ persona }) {
       ['day job', 'Kotlin, plus some Ruby and React, on a gen-AI CX platform @ Talkdesk'],
       ['side projects', 'TypeScript · React · Node.js · PostgreSQL'],
       ['also shipped with', 'Next.js · Prisma · Electron · Flutter · Python · Django · C++'],
-      ['data', 'PostgreSQL · Cassandra · MySQL · Oracle · MongoDB'],
+      ['data', 'PostgreSQL · Cassandra · Elasticsearch · MySQL · Oracle · MongoDB'],
       ['messaging', 'Kafka · RabbitMQ · ActiveMQ'],
       ['observability', 'Dynatrace · Datadog · Grafana'],
       ['cloud & infra', 'AWS Certified Cloud Practitioner · Docker · Kubernetes'],
