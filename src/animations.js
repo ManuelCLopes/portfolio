@@ -23,9 +23,25 @@ const textNodes = (el) => {
 };
 const restore = (nodes) => nodes.forEach((n) => { n.nodeValue = original.get(n); });
 
-const GLYPHS = 'ABCDEFGHJKLMNPQRSTUVWXYZ#%&*+<>/{}=?';
+// Text effects must not change the element's height, or everything below jumps while they run. Each one pins
+// the height the finished text takes and releases it when done.
+const pinHeight = (el, prop) => {
+  const before = el.style[prop];
+  el.style[prop] = `${el.getBoundingClientRect().height}px`;
+  return () => { el.style[prop] = before; };
+};
+
+// Random glyphs of the same kind as the character they stand in for (lowercase for lowercase, and so on), so
+// the scrambled text keeps roughly the same width and wraps like the real one; punctuation stays as it is.
+const POOLS = [[/[a-z]/, 'abcdeghknopqrsuvxyz'], [/[A-Z]/, 'ABCDEFGHKLNPRSTUVXYZ'], [/[0-9]/, '0123456789']];
+const glyphFor = (c) => {
+  const pool = POOLS.find(([re]) => re.test(c))?.[1];
+  return pool ? pool[(Math.random() * pool.length) | 0] : c;
+};
+
 // Resolves the text from random glyphs, left to right.
 function scramble(el, duration = 0.6) {
+  const unpin = pinHeight(el, 'height');
   const nodes = textNodes(el);
   const finals = nodes.map((n) => original.get(n));
   const total = finals.join('').length;
@@ -38,16 +54,17 @@ function scramble(el, duration = 0.6) {
         const f = finals[i];
         const keep = Math.max(0, Math.min(f.length, budget));
         budget -= f.length;
-        n.nodeValue = f.slice(0, keep) + [...f.slice(keep)].map((c) => (c === ' ' ? ' ' : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join('');
+        n.nodeValue = f.slice(0, keep) + [...f.slice(keep)].map(glyphFor).join('');
       });
     },
-    onComplete: () => restore(nodes),
-    onInterrupt: () => restore(nodes),
+    onComplete: () => { restore(nodes); unpin(); },
+    onInterrupt: () => { restore(nodes); unpin(); },
   });
 }
 
 // Types the text in, like a terminal.
 function typeIn(el, duration = 1.1) {
+  const unpin = pinHeight(el, 'minHeight');
   const nodes = textNodes(el);
   const finals = nodes.map((n) => original.get(n));
   const total = finals.join('').length;
@@ -59,8 +76,8 @@ function typeIn(el, duration = 1.1) {
       let b = Math.round(o.n);
       nodes.forEach((n, i) => { const k = Math.max(0, Math.min(finals[i].length, b)); n.nodeValue = finals[i].slice(0, k); b -= finals[i].length; });
     },
-    onComplete: () => restore(nodes),
-    onInterrupt: () => { restore(nodes); el.classList.remove('typing'); },
+    onComplete: () => { restore(nodes); unpin(); },
+    onInterrupt: () => { restore(nodes); unpin(); el.classList.remove('typing'); },
   });
 }
 
