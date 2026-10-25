@@ -281,3 +281,21 @@ export function characterRig(card) {
   blinkLoop($('.eyes', svg));
   return build(svg);
 }
+
+// The contact preview isn't the form. Clicking it brings the persona out from behind the card, pointing at the
+// form: to the left on wide screens, upwards where the form sits above the preview.
+export function peekAndPoint(peek, { vertical }) {
+  const arm = $('.point', peek), say = $('.peek-say', peek);
+  const aim = vertical ? 65 : 0;
+  gsap.killTweensOf([peek, arm, say]);
+  return gsap.timeline()
+    .set(peek, { visibility: 'visible', x: 0, y: 0 })
+    .set(arm, { rotation: aim + 30, svgOrigin: '106 105', x: 0, y: 0 })
+    .to(peek, vertical ? { y: -100, duration: 0.45, ease: 'back.out(1.7)' } : { x: -96, duration: 0.45, ease: 'back.out(1.7)' })
+    .to(arm, { rotation: aim, duration: 0.3, ease: 'back.out(3)' }, '-=0.1')
+    .fromTo(say, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: 'back.out(2)' }, '<')
+    .to(arm, vertical ? { x: -2, y: -4, duration: 0.16, yoyo: true, repeat: 3 } : { x: -5, duration: 0.16, yoyo: true, repeat: 3 })
+    .to(say, { opacity: 0, duration: 0.2 }, '+=1.3')
+    .to(peek, { x: 0, y: 0, duration: 0.4, ease: 'power2.in' }, '<')
+    .set(peek, { visibility: 'hidden' });
+}

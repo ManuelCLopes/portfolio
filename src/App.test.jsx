@@ -98,3 +98,13 @@ test('the contact form posts name, email and a persona-tagged message', async ()
   expect(body.message).toContain('Role: Backend Engineer');
   expect(await screen.findByRole('status')).toHaveTextContent(/received/i);
 });
+
+test('clicking the message preview points the visitor to the first empty field', async () => {
+  const user = userEvent.setup();
+  window.history.replaceState(null, '', '/#recruiter');
+  render(<App />);
+  await user.type(screen.getByLabelText('Your name'), 'Ana');
+  await user.click(document.querySelector('.preview .mail'));
+  expect(screen.getByLabelText('Your email')).toHaveFocus();
+  expect(screen.getByLabelText('Your email')).toHaveClass('nudge');
+});

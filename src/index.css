@@ -210,6 +210,14 @@ form button:disabled { opacity: .6; cursor: progress; }
 .mode-engineer form { font-family: var(--mono); }
 .preview { display: grid; gap: 14px; position: sticky; top: 80px; }
 .preview .eyebrow { margin: 0; }
+/* The persona hides behind the preview card until someone clicks the card (see peekAndPoint). */
+.peek-wrap { position: relative; }
+.peek-wrap > :not(.peek) { position: relative; z-index: 1; }
+.peek { --c: var(--accent); position: absolute; left: 0; top: 28px; width: 130px; z-index: 0; visibility: hidden; pointer-events: none; }
+.peek svg { display: block; width: 100%; height: auto; }
+.peek-say { position: absolute; bottom: calc(100% - 4px); right: 36px; white-space: nowrap; font: 600 12px var(--mono); background: var(--ink); color: var(--surface); padding: 5px 9px; border-radius: 8px; opacity: 0; }
+form input.nudge, form textarea.nudge { animation: nudge .9s ease-out 2; }
+@keyframes nudge { from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } to { box-shadow: 0 0 0 10px transparent; } }
 .preview .body { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .mail { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; }
 .mail dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 12px; margin: 0; padding: 16px 18px; border-bottom: 1px solid var(--rule); font-size: 14px; }
@@ -237,6 +245,8 @@ footer { padding-block: 48px 40px; color: var(--mute); font-size: 13px; text-ali
 @media (max-width: 860px) {
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .preview { position: static; }
+  .peek { left: 24px; top: 0; }
+  .peek-say { right: auto; left: -8px; }
 }
 @media (max-width: 600px) {
   .facts, .cards { grid-template-columns: minmax(0, 1fr); }

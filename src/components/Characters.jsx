@@ -9,6 +9,54 @@ const CodeLines = () => [0, 1].flatMap((pass) => WIDTHS.map((w, i) => {
   return <rect key={`${pass}-${i}`} className={i % 3 === 0 ? 'codeA' : 'codeB'} x={176 + indent} y={32 + (pass * WIDTHS.length + i) * 7} width={w - indent} height="3" rx="1.5" />;
 }));
 
+// Heads are shared by the chooser scenes and the contact form's peeking character.
+const RecruiterHead = () => (
+        <g className="head">
+        <circle className="face" cx="120" cy="68" r="26" />
+        <circle className="hair" cx="120" cy="39" r="8" />
+        <path className="hair" d="M94 68 C90 38 150 38 146 68 C140 52 102 52 94 68 Z" />
+        <g className="brows"><path className="none" d="M105 58 L114 57" /><path className="none" d="M126 57 L135 58" /></g>
+        <g className="eyes"><circle className="ink" cx="110" cy="67" r="2.8" /><circle className="ink" cx="130" cy="67" r="2.8" /></g>
+        <path className="none" d="M113 80 Q120 84 127 80" />
+        <path className="hs" d="M92 70 C88 30 152 30 148 70" />
+        <rect className="acc" x="86" y="61" width="9" height="17" rx="3" />
+        <rect className="acc" x="145" y="61" width="9" height="17" rx="3" />
+        <path className="hs" d="M90 76 Q93 92 107 92" />
+        <circle className="acc" cx="109" cy="92" r="3" />
+        </g>
+);
+
+const EngineerHead = () => (
+        <g className="head">
+        <circle className="face" cx="120" cy="68" r="26" />
+        <path className="hair" d="M94 66 C92 44 108 38 120 40 C134 38 150 46 146 66 L141 55 L134 61 L128 52 L120 59 L112 51 L105 60 L99 55 Z" />
+        <g className="eyes"><circle className="ink" cx="110" cy="68" r="2.6" /><circle className="ink" cx="130" cy="68" r="2.6" /></g>
+        <g className="glasses">
+        <rect className="none" x="100" y="61" width="19" height="14" rx="5" />
+        <rect className="none" x="121" y="61" width="19" height="14" rx="5" />
+        </g>
+        <path className="none hide-on-pick mouth" d="M115 82 L125 82" />
+        <path className="none alt smile" d="M112 80 Q120 87 128 80" />
+        <ellipse className="glow" cx="120" cy="76" rx="25" ry="17" />
+        </g>
+);
+
+const CuriousHead = () => (
+        <g className="head">
+        <circle className="face" cx="120" cy="68" r="26" />
+        <circle className="hair" cx="98" cy="52" r="9" /><circle className="hair" cx="108" cy="44" r="10" /><circle className="hair" cx="120" cy="41" r="10" />
+        <circle className="hair" cx="132" cy="44" r="10" /><circle className="hair" cx="142" cy="52" r="9" />
+        <circle className="hair" cx="95" cy="63" r="6" /><circle className="hair" cx="145" cy="63" r="6" />
+        <g className="brows"><path className="none" d="M103 56 Q109 52 115 55" /><path className="none" d="M125 55 Q131 51 137 56" /></g>
+        <g className="eyes">
+        <circle className="white" cx="110" cy="67" r="5.5" /><circle className="ink" cx="111" cy="67" r="2.8" />
+        <circle className="white" cx="130" cy="67" r="5.5" /><circle className="ink" cx="131" cy="67" r="2.8" />
+        </g>
+        <circle className="none hide-on-pick mouth" cx="120" cy="82" r="3" />
+        <path className="none alt smile" d="M112 80 Q120 88 128 80" />
+        </g>
+);
+
 function Recruiter() {
   return (
     <svg className="fig" aria-hidden="true" viewBox="0 0 240 150">
@@ -19,19 +67,7 @@ function Recruiter() {
     <rect className="face" x="113" y="88" width="14" height="18" rx="4" />
     <path className="acc" d="M72 150 C72 114 94 102 120 102 C146 102 168 114 168 150 Z" />
     <path className="white" d="M109 103 L120 124 L131 103 Z" />
-    <g className="head">
-    <circle className="face" cx="120" cy="68" r="26" />
-    <circle className="hair" cx="120" cy="39" r="8" />
-    <path className="hair" d="M94 68 C90 38 150 38 146 68 C140 52 102 52 94 68 Z" />
-    <g className="brows"><path className="none" d="M105 58 L114 57" /><path className="none" d="M126 57 L135 58" /></g>
-    <g className="eyes"><circle className="ink" cx="110" cy="67" r="2.8" /><circle className="ink" cx="130" cy="67" r="2.8" /></g>
-    <path className="none" d="M113 80 Q120 84 127 80" />
-    <path className="hs" d="M92 70 C88 30 152 30 148 70" />
-    <rect className="acc" x="86" y="61" width="9" height="17" rx="3" />
-    <rect className="acc" x="145" y="61" width="9" height="17" rx="3" />
-    <path className="hs" d="M90 76 Q93 92 107 92" />
-    <circle className="acc" cx="109" cy="92" r="3" />
-    </g>
+    <RecruiterHead />
     <rect className="desk" x="-4" y="128" width="248" height="26" />
     <rect className="surf" x="27" y="100" width="22" height="28" rx="3" />
     <path className="none" d="M49 106 q9 0 9 8 q0 8 -9 8" />
@@ -75,18 +111,7 @@ function Engineer() {
     <rect className="face" x="113" y="88" width="14" height="18" rx="4" />
     <path className="acc" d="M72 150 C72 114 94 102 120 102 C146 102 168 114 168 150 Z" />
     <path className="none" d="M112 106 L110 124" /><path className="none" d="M128 106 L130 124" />
-    <g className="head">
-    <circle className="face" cx="120" cy="68" r="26" />
-    <path className="hair" d="M94 66 C92 44 108 38 120 40 C134 38 150 46 146 66 L141 55 L134 61 L128 52 L120 59 L112 51 L105 60 L99 55 Z" />
-    <g className="eyes"><circle className="ink" cx="110" cy="68" r="2.6" /><circle className="ink" cx="130" cy="68" r="2.6" /></g>
-    <g className="glasses">
-    <rect className="none" x="100" y="61" width="19" height="14" rx="5" />
-    <rect className="none" x="121" y="61" width="19" height="14" rx="5" />
-    </g>
-    <path className="none hide-on-pick mouth" d="M115 82 L125 82" />
-    <path className="none alt smile" d="M112 80 Q120 87 128 80" />
-    <ellipse className="glow" cx="120" cy="76" rx="25" ry="17" />
-    </g>
+    <EngineerHead />
     {/* laptop, seen from behind */}
     <rect className="surf" x="84" y="94" width="72" height="34" rx="3" />
     <rect className="acc" x="112" y="104" width="16" height="12" rx="3" transform="rotate(-8 120 110)" />
@@ -121,19 +146,7 @@ function Curious() {
     <rect className="face" x="113" y="88" width="14" height="18" rx="4" />
     <path className="acc" d="M72 150 C72 114 94 102 120 102 C146 102 168 114 168 150 Z" />
     <path className="white" d="M80 124 C100 118 140 118 160 124 L162 132 C140 126 100 126 78 132 Z" />
-    <g className="head">
-    <circle className="face" cx="120" cy="68" r="26" />
-    <circle className="hair" cx="98" cy="52" r="9" /><circle className="hair" cx="108" cy="44" r="10" /><circle className="hair" cx="120" cy="41" r="10" />
-    <circle className="hair" cx="132" cy="44" r="10" /><circle className="hair" cx="142" cy="52" r="9" />
-    <circle className="hair" cx="95" cy="63" r="6" /><circle className="hair" cx="145" cy="63" r="6" />
-    <g className="brows"><path className="none" d="M103 56 Q109 52 115 55" /><path className="none" d="M125 55 Q131 51 137 56" /></g>
-    <g className="eyes">
-    <circle className="white" cx="110" cy="67" r="5.5" /><circle className="ink" cx="111" cy="67" r="2.8" />
-    <circle className="white" cx="130" cy="67" r="5.5" /><circle className="ink" cx="131" cy="67" r="2.8" />
-    </g>
-    <circle className="none hide-on-pick mouth" cx="120" cy="82" r="3" />
-    <path className="none alt smile" d="M112 80 Q120 88 128 80" />
-    </g>
+    <CuriousHead />
     <text className="qmark qm1 hide-on-pick" x="166" y="50">?</text>
     <text className="qmark qm2 reveal" x="190" y="30" style={{ fontSize: '20px' }}>?</text>
     <text className="qmark qm3 reveal" x="152" y="24" style={{ fontSize: '15px' }}>?</text>
@@ -168,6 +181,33 @@ function Curious() {
 }
 
 const CHARACTERS = { recruiter: Recruiter, engineer: Engineer, curious: Curious };
+const HEADS = { recruiter: RecruiterHead, engineer: EngineerHead, curious: CuriousHead };
+const SAY = {
+  recruiter: 'The form’s over here. Takes 30 seconds.',
+  engineer: '// read-only. Use the form.',
+  curious: 'Psst! You type over there!',
+};
+
+// Peeks out from behind the contact preview and points at the form (animated by peekAndPoint).
+export function Peek({ persona, peekRef }) {
+  const Head = HEADS[persona];
+  return (
+    <span className="peek" ref={peekRef} aria-hidden="true">
+      <span className="peek-say">{SAY[persona]}</span>
+      <svg className="fig" viewBox="44 20 136 110">
+        {persona === 'engineer' && <circle className="dark" cx="120" cy="72" r="34" />}
+        <rect className="face" x="113" y="88" width="14" height="18" rx="4" />
+        <path className="acc" d="M72 150 C72 114 94 102 120 102 C146 102 168 114 168 150 Z" />
+        <Head />
+        <g className="point">
+          <rect className="acc" x="64" y="100" width="44" height="11" rx="5.5" />
+          <circle className="face" cx="64" cy="105.5" r="6.5" />
+          <rect className="face" x="48" y="102.5" width="14" height="6" rx="3" />
+        </g>
+      </svg>
+    </span>
+  );
+}
 
 export default function Character({ persona }) {
   const C = CHARACTERS[persona];

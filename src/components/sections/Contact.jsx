@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { CONTACT_ENDPOINT, socials } from '../../data/profile';
 import { ArrowUpRight } from '../Icons';
+import { Peek } from '../Characters';
+import { motionAllowed } from '../../motion';
 
 const COPY = {
   recruiter: {
@@ -31,12 +33,17 @@ const Icon = ({ name }) => (name === 'GitHub' ? (
 ));
 
 // A live preview of exactly what will be sent, dressed for each persona.
-function Preview({ persona, fields, label }) {
+function Preview({ persona, fields, label, onPoke }) {
   const v = (k, fallback) => fields[k]?.trim() || fallback;
   const from = `${v('name', 'Your name')} <${v('email', 'you@example.com')}>`;
+  const peekRef = useRef(null);
+  // Clicking the preview (it looks editable, it isn't) gets a pointer to the real form.
+  const poke = () => onPoke(peekRef.current);
   return (
     <aside className={`preview preview-${persona}`} aria-label="Message preview">
       <p className="eyebrow">{label}</p>
+      <div className="peek-wrap" onClick={poke}>
+      <Peek persona={persona} peekRef={peekRef} />
       {persona === 'recruiter' && (
         <div className="mail">
           <dl>
@@ -61,6 +68,7 @@ function Preview({ persona, fields, label }) {
           <div className="addr"><span className="postmark">Viseu · PT</span><p>To: Manuel Lopes<br />From: {v('name', 'a curious visitor')}</p></div>
         </div>
       )}
+      </div>
       <p className="socials">
         {socials.map((s) => (
           <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"><Icon name={s.name} />{s.name}<ArrowUpRight /></a>
@@ -75,7 +83,28 @@ export default function Contact({ persona }) {
   const [fields, setFields] = useState({});
   const [status, setStatus] = useState({ type: '', message: '' });
   const [sending, setSending] = useState(false);
+  const formRef = useRef(null);
   const set = (k) => (e) => setFields((f) => ({ ...f, [k]: e.target.value }));
+
+  // Draws the eye to the first empty field (or the first field) and puts the cursor there.
+  const nudgeForm = () => {
+    const inputs = [...(formRef.current?.querySelectorAll('input, textarea') || [])];
+    const field = inputs.find((f) => !f.value) || inputs[0];
+    if (!field) return;
+    field.classList.remove('nudge');
+    void field.offsetWidth; // restart the pulse
+    field.classList.add('nudge');
+    const r = field.getBoundingClientRect();
+    if (r.top < 0 || r.bottom > window.innerHeight) field.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+    field.focus({ preventScroll: true });
+  };
+  const pointAtForm = (peek) => {
+    if (!motionAllowed() || !peek) { nudgeForm(); return; }
+    import('../../animations').then((m) => {
+      m.peekAndPoint(peek, { vertical: window.matchMedia('(max-width: 860px)').matches });
+      setTimeout(nudgeForm, 650);
+    });
+  };
   const val = (k) => fields[k] || '';
 
   const submit = async (e) => {
@@ -111,7 +140,7 @@ export default function Contact({ persona }) {
       <h2>{Array.isArray(c.title) ? c.title.map((line, i) => <span key={line} className="line">{i > 0 && ' '}{line}</span>) : c.title}</h2>
       <p className="lede">{c.lede}</p>
       <div className="contact-grid">
-        <form onSubmit={submit}>
+        <form onSubmit={submit} ref={formRef}>
           {persona === 'engineer' && field('title', 'title', { placeholder: 'feat: let’s build something', required: true })}
           {field('name', persona === 'engineer' ? 'author' : 'Your name', { autoComplete: 'name', required: true })}
           {field('email', persona === 'engineer' ? 'email' : 'Your email', { type: 'email', autoComplete: 'email', required: true })}
@@ -122,7 +151,7 @@ export default function Contact({ persona }) {
           <button type="submit" disabled={sending}>{sending ? 'Sending…' : c.button}</button>
           <div className={`out ${status.type}`} role="status" aria-live="polite">{status.message}</div>
         </form>
-        <Preview persona={persona} fields={fields} label={c.preview} />
+        <Preview persona={persona} fields={fields} label={c.preview} onPoke={pointAtForm} />
       </div>
     </>
   );

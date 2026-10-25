@@ -8,6 +8,7 @@ import Career from './components/sections/Career';
 import Research from './components/sections/Research';
 import Contact from './components/sections/Contact';
 import { isPersona, persona as META } from './personas';
+import { motionAllowed } from './motion';
 
 // Nothing is shown until the visitor picks a persona. Only a shared link (#engineer…) skips the question.
 const initialPersona = () => {
@@ -15,8 +16,6 @@ const initialPersona = () => {
   return isPersona(fromHash) ? fromHash : null;
 };
 
-// Animations run only where the browser supports them and the reader hasn't asked for reduced motion.
-const motionAllowed = () => typeof window.matchMedia === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let anim = null; // the GSAP module, loaded lazily so tests and reduced-motion readers skip it
 
