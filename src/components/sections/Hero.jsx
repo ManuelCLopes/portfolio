@@ -1,4 +1,5 @@
 import { certifications, experience, otherTech, yearsSince } from '../../data/profile';
+import { Check } from '../Icons';
 
 const firstJob = experience[experience.length - 1].start;
 const outsystemsCerts = certifications.filter((c) => c.issuer === 'OutSystems').length;
@@ -15,7 +16,7 @@ export default function Hero({ persona }) {
     const facts = [
       ['Now', 'Software Engineer @ Talkdesk'],
       ['Experience', `${years} years, since ${firstJob.slice(0, 4)}`],
-      ['Also', 'Invited Assistant, Polytechnic of Viseu'],
+      ['Taught', 'Invited Assistant, Polytechnic of Viseu, 2023–2026'],
       ['Education', 'MSc Computer Science & Engineering'],
       ['Certified', `AWS Cloud Practitioner + ${outsystemsCerts} OutSystems`],
       ['Based in', 'Viseu, Portugal'],
@@ -26,7 +27,7 @@ export default function Hero({ persona }) {
         <h1 data-anim="title">Manuel Lopes, <em>Software Engineer</em></h1>
         <p className="lede">The short version, in bullet points. No buzzword bingo (fine, maybe one: <i>full-stack</i>).</p>
         <ul className="facts">
-          {facts.map(([k, v]) => <li key={k}><b>{k}</b>{v}<span className="stamp" aria-hidden="true">✓</span></li>)}
+          {facts.map(([k, v]) => <li key={k}><b>{k}</b>{v}<span className="stamp" aria-hidden="true"><Check /></span></li>)}
         </ul>
       </>
     );
@@ -54,7 +55,7 @@ export default function Hero({ persona }) {
 
   const facts = [
     ['Day job', 'Building software that helps companies talk to their customers, at Talkdesk.'],
-    ['Side job', 'Teaching university students how to program, in Viseu.'],
+    ['Until recently', 'Taught university students how to program, in Viseu.'],
     ['Hobby', 'Ranking francesinhas. Scientifically.'],
   ];
   return (

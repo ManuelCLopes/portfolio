@@ -1,12 +1,13 @@
 import { projects } from '../../data/profile';
 import Jargon from '../Jargon';
+import { ArrowUpRight } from '../Icons';
 
 const host = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 const Links = ({ p }) => (
   <p className="links">
-    {p.demo && <a href={p.demo} target="_blank" rel="noopener noreferrer">{host(p.demo)} ↗</a>}
-    <a href={p.github} target="_blank" rel="noopener noreferrer">{p.github.includes('github.com') ? 'Code on GitHub ↗' : 'Read the paper ↗'}</a>
+    {p.demo && <a href={p.demo} target="_blank" rel="noopener noreferrer">{host(p.demo)}<ArrowUpRight /></a>}
+    <a href={p.github} target="_blank" rel="noopener noreferrer">{p.github.includes('github.com') ? 'Code on GitHub' : 'Read the paper'}<ArrowUpRight /></a>
   </p>
 );
 

@@ -120,10 +120,10 @@ export const experience = [
     curious: 'Making a big system cope with lots of people at once.',
   },
   {
-    company: 'Polytechnic Institute of Viseu', website: 'https://ipv.pt', role: 'Invited Assistant', start: '2023-02', end: null,
-    recruiterNote: 'In parallel, teaching.',
-    engineer: 'Programming and Algorithms, Software Engineering I, Database Management, NoSQL. Course materials and student support.',
-    curious: 'Teaching university students how to program. Turns out explaining things is half the job anyway.',
+    company: 'Polytechnic Institute of Viseu', website: 'https://ipv.pt', role: 'Invited Assistant', start: '2023-02', end: '2026-09',
+    recruiterNote: 'Taught alongside industry roles.',
+    engineer: 'Taught Programming and Algorithms, Software Engineering I, Database Management and NoSQL. Course materials and student support.',
+    curious: 'Taught university students how to program for three and a half years. Turns out explaining things is half the job anyway.',
   },
   {
     company: 'Capgemini', website: 'https://www.capgemini.com/', role: 'Lead Software Engineer', start: '2022-07', end: '2024-06',

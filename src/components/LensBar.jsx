@@ -1,4 +1,5 @@
 import { PERSONAS, persona as META } from '../personas';
+import { Stopwatch } from './Icons';
 
 export default function LensBar({ current, onSwitch, meterLabelRef, meterFillRef, readTime }) {
   return (
@@ -11,6 +12,7 @@ export default function LensBar({ current, onSwitch, meterLabelRef, meterFillRef
           ))}
         </div>
         <span className="meter">
+          {current === 'recruiter' && <Stopwatch />}
           <span ref={meterLabelRef}>{META[current].meter(0)}</span>
           <span className="track" aria-hidden="true"><i ref={meterFillRef} /></span>
         </span>

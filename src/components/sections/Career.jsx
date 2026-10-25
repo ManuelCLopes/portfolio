@@ -1,5 +1,6 @@
 import { experience, formatRange, formatTenure, monthsBetween } from '../../data/profile';
 import Jargon from '../Jargon';
+import { Check } from '../Icons';
 
 const Company = ({ e }) => <a href={e.website} target="_blank" rel="noopener noreferrer">{e.company}</a>;
 
@@ -17,7 +18,7 @@ export default function Career({ persona }) {
           <ol className="timeline">
             {experience.map((e, i) => (
               <li key={e.role + e.start}>
-                <span className="check" aria-hidden="true" />
+                <span className="check" aria-hidden="true"><Check /></span>
                 <span className="when">{formatRange(e.start, e.end)}</span>
                 <div>
                   <strong>{e.role} · <Company e={e} /></strong>

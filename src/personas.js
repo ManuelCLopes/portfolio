@@ -6,7 +6,7 @@ export const persona = {
     accent: '#1f4fd1',
     pick: { title: 'The 30-second version', quote: '“I have 200 CVs and a coffee getting cold.”', detail: 1 },
     wipe: 'Compressing to 30 seconds…',
-    meter: (p) => `⏱ ${Math.round(p * 30)} / 30 s`,
+    meter: (p) => `${Math.round(p * 30)} / 30 s`,
   },
   engineer: {
     label: 'Engineer',
