@@ -20,7 +20,7 @@ export const projects = [
     stack: ['Next.js 16', 'Prisma 7', 'PostgreSQL', 'TypeScript', 'Tailwind', 'Playwright'],
     featured: true,
     description: 'A focused platform to evaluate francesinhas in Portugal with structured scoring, configurable weighted criteria, national rankings, restaurant insights, and community suggestions.',
-    recruiter: { pitch: "Public site ranking Portugal's francesinhas.", signal: 'owns a product from database to design.' },
+    recruiter: { pitch: "Public site ranking Portugal's francesinhas, with weighted reviews, national rankings and community suggestions.", signal: 'owns a product from database to design.' },
     engineer: { note: 'Weighted criteria per review, aggregates recomputed in the background, and unit, integration and Playwright e2e suites in CI.' },
     curious: 'A website that rates francesinhas across Portugal: sauce, bread, meat, the works. Very serious research, eaten one plate at a time.',
   },
