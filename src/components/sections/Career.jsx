@@ -1,4 +1,4 @@
-import { experience, formatRange, formatTenure, monthsBetween } from '../../data/profile';
+import { experience, formatRange, formatTenure, monthsBetween, yearsSince } from '../../data/profile';
 import Jargon from '../Jargon';
 import { Check } from '../Icons';
 
@@ -8,10 +8,11 @@ export default function Career({ persona }) {
   if (persona === 'recruiter') {
     const months = experience.map((e) => monthsBetween(e.start, e.end));
     const longest = Math.max(...months);
+    const firstStart = experience.map((e) => e.start).sort()[0];
     return (
       <>
         <p className="eyebrow">Career</p>
-        <h2>{experience.length} roles, zero gaps</h2>
+        <h2>{experience.length} roles in {yearsSince(firstStart)} years</h2>
         <p className="lede">Banking, security and customer experience. Tenure included, because you were going to calculate it anyway.</p>
         <div className="tl-wrap">
           <span className="rail" aria-hidden="true"><i /></span>

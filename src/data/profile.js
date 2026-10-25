@@ -112,8 +112,8 @@ export const experience = [
   },
   {
     company: 'Bitsight', website: 'https://www.bitsight.com', role: 'Software Engineer', start: '2024-07', end: '2024-08',
-    engineer: 'Scaled REST APIs to serve large amounts of data during rapid user growth.',
-    curious: 'Making a big system cope with lots of people at once.',
+    engineer: 'Joined a team scaling REST APIs during rapid user growth. Worked on endpoints serving large data volumes.',
+    curious: 'A short stop on a team making a big system cope with lots of people at once.',
   },
   {
     company: 'Polytechnic Institute of Viseu', website: 'https://ipv.pt', role: 'Invited Assistant', start: '2023-02', end: '2026-09',
