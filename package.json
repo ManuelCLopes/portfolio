@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@tippyjs/react": "^4.2.6",
-    "framer-motion": "^14.6.0",
+    "gsap": "^3.15.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "tippy.js": "^6.3.7",
     "web-vitals": "^6.2.3"
   },
   "scripts": {
@@ -36,11 +34,8 @@
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.8",
     "@vitejs/plugin-react": "^6.1.2",
-    "autoprefixer": "^10.6.1",
     "gh-pages": "^6.3.0",
     "jsdom": "^29.1.1",
-    "postcss": "^8.5.31",
-    "tailwindcss": "^3.4.19",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"
   }
