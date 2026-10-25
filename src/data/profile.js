@@ -1,7 +1,10 @@
 // Everything the site says about Manuel, shared by all three personas.
 // Persona-specific wording lives next to each item (recruiter / engineer / curious).
 
-export const CONTACT_ENDPOINT = 'https://immense-ridge-33859-3708a56393e0.herokuapp.com/api/send-email';
+// Contact form delivery via Web3Forms. The access key is public by design: it only lets visitors send
+// messages to Manuel's inbox, so it is safe in client code.
+export const CONTACT_ENDPOINT = 'https://api.web3forms.com/submit';
+export const WEB3FORMS_KEY = '29db7ec0-fc1d-4b26-acf2-3343de2b7a69';
 
 export const socials = [
   { name: 'GitHub', href: 'https://github.com/manuelclopes' },

@@ -93,8 +93,20 @@ test('opens the persona from the link hash', () => {
   expect(hero()).toHaveTextContent('Kotlin by day');
 });
 
+test('a rejected submission shows the error instead of success', async () => {
+  vi.spyOn(window, 'fetch').mockResolvedValue(new Response('{"success":false,"message":"Invalid access key"}', { status: 200 }));
+  const user = userEvent.setup();
+  window.history.replaceState(null, '', '/#curious');
+  render(<App />);
+  await user.type(screen.getByLabelText('Your name'), 'Ana');
+  await user.type(screen.getByLabelText('Your email'), 'ana@example.com');
+  await user.type(screen.getByLabelText('Message'), 'Hello');
+  await user.click(screen.getByRole('button', { name: 'Send a hello' }));
+  expect(await screen.findByRole('status')).toHaveTextContent(/didn’t go through/i);
+});
+
 test('the contact form posts name, email and a persona-tagged message', async () => {
-  const fetchMock = vi.spyOn(window, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+  const fetchMock = vi.spyOn(window, 'fetch').mockResolvedValue(new Response('{"success":true}', { status: 200 }));
   const user = userEvent.setup();
   window.history.replaceState(null, '', '/#recruiter');
   render(<App />);
@@ -107,9 +119,10 @@ test('the contact form posts name, email and a persona-tagged message', async ()
 
   expect(fetchMock).toHaveBeenCalledTimes(1);
   const [url, init] = fetchMock.mock.calls[0];
-  expect(url).toMatch(/\/api\/send-email$/);
+  expect(url).toBe('https://api.web3forms.com/submit');
   const body = JSON.parse(init.body);
-  expect(body).toMatchObject({ name: 'Ana', email: 'ana@example.com' });
+  expect(body).toMatchObject({ name: 'Ana', email: 'ana@example.com', botcheck: false, subject: '[Recruiter] Portfolio message from Ana' });
+  expect(body.access_key).toMatch(/^[0-9a-f-]{36}$/);
   expect(body.message).toContain('[Recruiter] Company: Acme');
   expect(body.message).toContain('Role: Backend Engineer');
   expect(await screen.findByRole('status')).toHaveTextContent(/received/i);

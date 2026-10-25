@@ -68,7 +68,7 @@ Other scripts:
 
 ### Deployment:
 
-`npm run deploy` builds the site with Vite and publishes `build/` to the `gh-pages` branch (GitHub Pages). Asset paths are relative, so the build also works from any static host or sub-path. For the backend email API, make sure the Node.js server is deployed separately (e.g., on Heroku) and update the contact form endpoint.
+`npm run deploy` builds the site with Vite and publishes `build/` to the `gh-pages` branch (GitHub Pages). Asset paths are relative, so the build also works from any static host or sub-path. The contact form sends messages through Web3Forms (`CONTACT_ENDPOINT` and `WEB3FORMS_KEY` in `src/data/profile.js`); no server is needed.
 
 ### Contact:
 
