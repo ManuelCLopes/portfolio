@@ -27,7 +27,7 @@ test('each persona rewrites the page', async () => {
   expect(window.location.hash).toBe('#recruiter');
 
   await user.click(within(lens).getByRole('button', { name: 'Engineer' }));
-  expect(hero()).toHaveTextContent('Kotlin by day, TypeScript by night');
+  expect(hero()).toHaveTextContent('Kotlin by day, side projects by night');
   expect(screen.getByText('Stack and trade-offs')).toBeInTheDocument();
   expect(screen.getByRole('link', { name: 'francesinhas.top ↗' })).toHaveAttribute('href', 'https://francesinhas.top');
 

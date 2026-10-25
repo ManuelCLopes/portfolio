@@ -45,7 +45,7 @@ export default function Hero({ persona }) {
     return (
       <>
         <p className="eyebrow">$ whoami</p>
-        <h1 data-anim="type">Manuel Lopes. <em>Kotlin</em> by day, TypeScript by night.</h1>
+        <h1 data-anim="type">Manuel Lopes. <em>Kotlin</em> by day, side projects by night.</h1>
         <p className="lede">Full detail mode: stack, trade-offs, and the upgrades that went fine on the first try (the others are in the git history).</p>
         <ul className="facts">{facts.map(([k, v]) => <li key={k}><b>{k}</b>{v}</li>)}</ul>
       </>
