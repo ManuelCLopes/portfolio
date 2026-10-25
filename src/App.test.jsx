@@ -32,7 +32,7 @@ test('each persona rewrites the page', async () => {
 
   await user.click(within(lens).getByRole('button', { name: 'Recruiter' }));
   expect(hero()).toHaveTextContent('Manuel Lopes, Software Engineer');
-  expect(screen.getByText(/\d+ roles in \d+ years/i)).toBeInTheDocument();
+  expect(screen.getByText(/roles, zero gaps/i)).toBeInTheDocument();
   expect(window.location.hash).toBe('#recruiter');
 
   await user.click(within(lens).getByRole('button', { name: 'Engineer' }));

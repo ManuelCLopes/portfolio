@@ -8,11 +8,11 @@ export default function Career({ persona }) {
   if (persona === 'recruiter') {
     const months = experience.map((e) => monthsBetween(e.start, e.end));
     const longest = Math.max(...months);
-    const firstStart = experience.map((e) => e.start).sort()[0];
     return (
       <>
         <p className="eyebrow">Career</p>
-        <h2>{experience.length} roles in {yearsSince(firstStart)} years</h2>
+        {/* True because the teaching role overlaps the switch between industry jobs. */}
+        <h2>{experience.length} roles, zero gaps</h2>
         <p className="lede">Banking, security and customer experience. Tenure included, because you were going to calculate it anyway.</p>
         <div className="tl-wrap">
           <span className="rail" aria-hidden="true"><i /></span>
@@ -61,7 +61,7 @@ export default function Career({ persona }) {
     <>
       <p className="eyebrow">The story so far</p>
       <h2>How I got here</h2>
-      <p className="lede">Six years, told quickly. Follow the dot.</p>
+      <p className="lede">{yearsSince(story[0].start)} years, told quickly. Follow the dot.</p>
       <div className="tl-wrap">
         <svg className="trail" aria-hidden="true"><path className="ahead" /><path className="walked" /><circle r="7" /></svg>
         <ol className="timeline">

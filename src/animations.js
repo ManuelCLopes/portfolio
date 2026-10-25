@@ -147,18 +147,30 @@ export function choreograph(root, persona, { onProgress } = {}) {
     const wrap = $('.tl-wrap', root);
     const svg = $('.trail', wrap), walked = $('.walked', svg), ahead = $('.ahead', svg), dot = $('circle', svg);
     const items = $$('.timeline li', wrap);
-    const H = wrap.offsetHeight;
-    let d = 'M 28 6';
-    items.forEach((li, i) => { const y = li.offsetTop + 26; d += ` S ${i % 2 ? 46 : 10} ${y - 30} 28 ${y}`; });
-    d += ` L 28 ${H - 6}`;
-    svg.setAttribute('viewBox', `0 0 56 ${H}`);
-    walked.setAttribute('d', d); ahead.setAttribute('d', d);
-    dot.setAttribute('cx', '28'); dot.setAttribute('cy', '6');
-    const len = walked.getTotalLength();
-    gsap.set(walked, { strokeDasharray: len, strokeDashoffset: len });
-    gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 60%', end: 'bottom 60%', scrub: 0.5 } })
-      .to(walked, { strokeDashoffset: 0, ease: 'none' }, 0)
-      .to(dot, { ease: 'none', motionPath: { path: walked, align: walked, alignOrigin: [0.5, 0.5] } }, 0);
+    // The trail follows the items' positions, so it is redrawn whenever the timeline's height changes
+    // (fonts arriving, a resize, an iPad rotating), or it would drift away from the items.
+    let trail = null, drawnFor = -1;
+    const drawTrail = () => {
+      const H = wrap.offsetHeight;
+      if (H === drawnFor) return;
+      drawnFor = H;
+      trail?.scrollTrigger?.kill(); trail?.kill();
+      let d = 'M 28 6';
+      items.forEach((li, i) => { const y = li.offsetTop + 26; d += ` S ${i % 2 ? 46 : 10} ${y - 30} 28 ${y}`; });
+      d += ` L 28 ${H - 6}`;
+      svg.setAttribute('viewBox', `0 0 56 ${H}`);
+      walked.setAttribute('d', d); ahead.setAttribute('d', d);
+      dot.setAttribute('cx', '28'); dot.setAttribute('cy', '6');
+      const len = walked.getTotalLength();
+      gsap.set(walked, { strokeDasharray: len, strokeDashoffset: len });
+      gsap.set(dot, { x: 0, y: 0 });
+      trail = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'top 60%', end: 'bottom 60%', scrub: 0.5 } })
+        .to(walked, { strokeDashoffset: 0, ease: 'none' }, 0)
+        .to(dot, { ease: 'none', motionPath: { path: walked, align: walked, alignOrigin: [0.5, 0.5] } }, 0);
+    };
+    drawTrail();
+    ScrollTrigger.addEventListener('refresh', drawTrail);
+    cleanups.push(() => { ScrollTrigger.removeEventListener('refresh', drawTrail); trail?.scrollTrigger?.kill(); trail?.kill(); });
     items.forEach((li) => gsap.fromTo(li, { opacity: 0.25, x: 16 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(2)', scrollTrigger: { trigger: li, start: 'top 62%', toggleActions: 'play none none reverse' } }));
   }
 

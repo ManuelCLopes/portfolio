@@ -76,7 +76,7 @@ export const projects = [
     repoPublic: false,
     demo: 'https://tiny-snickerdoodle-eb2b4c.netlify.app',
     stack: ['HTML', 'CSS'],
-    description: 'A high-conversion landing page for the "Lead Ops System" (real estate lead management): agencies capture leads and book demos of a Gmail-as-CRM solution.',
+    description: 'A landing page for the "Lead Ops System" (real estate lead management): agencies capture leads and book demos of a Gmail-as-CRM solution.',
     recruiter: { pitch: 'Landing page for a real estate lead management product.' },
     engineer: { note: 'Static HTML and CSS. Sometimes the right framework is none.' },
     curious: 'A website that helps estate agencies stop losing customers in their inbox.',
@@ -107,7 +107,7 @@ export const projects = [
 export const experience = [
   {
     company: 'Talkdesk', website: 'https://www.talkdesk.com', role: 'Software Engineer', start: '2024-12', end: null,
-    engineer: 'Cloud-native, generative-AI customer experience platform, in the cloud and on premises. Mostly Kotlin.',
+    engineer: 'Generative-AI customer experience platform, deployed in the cloud and on premises. Mostly Kotlin.',
     curious: 'Building software that helps companies talk to their customers.',
   },
   {
@@ -129,7 +129,7 @@ export const experience = [
   },
   {
     company: 'Softinsa', website: 'https://www.softinsa.pt/pt/', role: 'Software Developer', start: '2020-09', end: '2022-06',
-    engineer: 'OutSystems for banking: a Reactive web app for vaults management and a Traditional web app for disinvestment properties.',
+    engineer: 'OutSystems for banking: a Reactive web app for vault management and a Traditional web app for properties held for divestment.',
     curious: 'Building apps for banks with a tool that lets you program by drawing boxes (it’s called [[low-code]]).',
   },
   {
@@ -148,8 +148,8 @@ export const publications = [
   { title: 'On the use of Message Brokers for Real-Time Monitoring Systems', venue: 'DiTTEt 2024', link: 'https://link.springer.com/chapter/10.1007/978-3-031-66635-3_12' },
   { title: 'An Audit Framework for Civil Construction Safety Management and Supervision', venue: 'DiTTEt 2024', link: 'https://www.researchgate.net/publication/382069042_An_Audit_Framework_for_Civil_Construction_Safety_Management_and_Supervision' },
   { title: 'Database Performance on Android Devices: A Comparative Analysis', venue: 'Marketing and Smart Technologies 2023', link: 'https://link.springer.com/chapter/10.1007/978-981-19-9099-1_18' },
-  { title: 'Mobile Optical Character Recognition', venue: 'IBIMA 2022', link: 'https://link.springer.com/chapter/10.1007/978-3-031-14859-0_6' },
-  { title: 'An Intelligent and Scalable IoT Monitoring Framework for Civil Construction Workspaces', venue: 'DiTTEt 2022', link: 'https://ibima.org/accepted-paper/mobile-optical-character-recognition' },
+  { title: 'Mobile Optical Character Recognition', venue: 'IBIMA 2022', link: 'https://ibima.org/accepted-paper/mobile-optical-character-recognition' },
+  { title: 'An Intelligent and Scalable IoT Monitoring Framework for Safety in Civil Construction Workspaces', venue: 'DiTTEt 2022', link: 'https://link.springer.com/chapter/10.1007/978-3-031-14859-0_6' },
 ];
 
 export const certifications = [
@@ -168,7 +168,7 @@ export const jargon = {
   AI: 'Software that can read and write text, a bit like a very fast intern.',
   'the cloud': 'Someone else’s computer, rented by the hour.',
   'low-code': 'Programming by connecting visual blocks instead of typing everything.',
-  sensors: 'Little devices that measure things like temperature or movement and report it.',
+  sensors: 'Little devices that measure things like temperature or movement and report back.',
 };
 
 const parse = (ym) => { const [y, m] = ym.split('-').map(Number); return y * 12 + (m - 1); };
